@@ -1,0 +1,17 @@
+# Visual Studio / SSIS / SSAS - archivos temporales y de usuario
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.dtproj.user
+*.database.user
+
+# Power BI - copias de respaldo locales
+*.pbix.bak
+
+# Sistema operativo
+Thumbs.db
+desktop.ini
+.DS_Store
