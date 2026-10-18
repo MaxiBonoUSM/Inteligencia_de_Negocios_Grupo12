@@ -1,0 +1,1 @@
+# Inteligencia_de_Negocios_Grupo12
