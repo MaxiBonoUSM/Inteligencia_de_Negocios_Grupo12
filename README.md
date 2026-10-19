@@ -166,13 +166,16 @@ CERTAMEN2-BI/
 |-- docs/
 |   |-- modelo-dimensional/
 |   |   `-- diagrama-estrella.png        Diagrama del modelo dimensional (SSMS)
-|   `-- presentacion/                    Presentación de la Fase 1
+|   |-- presentacion/                    
+|   |   `-- Kent Foods – Fase 1.pptx     Presentación de la Fase 1
+|   `-- informe/
+|       `-- Informe_KentFoods_Fase1.docx      Informe de la Fase 1
 |-- database/
 |   |-- scripts/
 |   |   |-- 01_crear_modelo_dimensional.sql   Crea KentFoodsDW y carga DimTiempo
 |   |   `-- 02_validacion_carga.sql           Valida la carga después del ETL
 |   `-- backup/
-|       |-- KentFoods.bak         Base transaccional entregada (origen)
+|       |-- KentFoods.bak                Base transaccional entregada (origen)
 |       `-- KentFoodsDW.bak              Backup del DW con datos cargados (pendiente)
 |-- etl/
 |   `-- proyecto-ssis/                   Proyecto Visual Studio SSIS (pendiente)
