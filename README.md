@@ -153,7 +153,23 @@ El script [`database/scripts/02_validacion_carga.sql`](database/scripts/02_valid
 ---
 
 ## Proceso ETL - Fase 1
-_Pendiente_
+El proceso ETL se implementó en SQL Server Integration Services (SSIS) dentro de Visual Studio. El paquete `Main.dtsx` orquesta la extracción, transformación y carga desde la base transaccional `KentFoods` hacia el modelo dimensional `KentFoodsDW`.
+
+**Flujo de Control (Control Flow):**
+1. **`SQL_Delete_Tablas`**: Tarea SQL que limpia las tablas del DW en orden inverso de dependencia (usando `DELETE` para respetar las Foreign Keys).
+2. **Carga de Dimensiones**: Cuatro tareas de flujo de datos (`DFT_Carga_Dim...`) que se ejecutan para cargar `DimCliente`, `DimTransportista`, `DimEmpleado` y `DimProducto`.
+3. **`DFT_Carga_FACTVentas`**: Carga la tabla de hechos una vez que las dimensiones están pobladas.
+4. **`SQL_Validacion_Carga`**: Tarea final que ejecuta el script de validación comparando el origen y el destino.
+
+**Transformaciones clave en el Flujo de Datos (Data Flow):**
+* **DimProducto**: Se utiliza un origen OLE DB con comando SQL para desnormalizar `Productos`, `Categorias` y `Proveedores` mediante `INNER JOIN`.
+* **DimEmpleado**: Se usa un componente *Columna Derivada* (Derived Column) para concatenar `Nombre` y `Apellido` en `NombreCompleto`.
+* **FactVentas**:
+  * *Cálculos*: 3 componentes de *Columna Derivada* calculan `MontoBruto`, `MontoDescuento`, `MontoNeto` y `DiasDespacho` (manejando nulos en `FechaEnvio`).
+  * *Lookups*: Seis componentes *Búsqueda* (Lookup) obtienen las claves sustitutas (`...Key`) de cada dimensión. Para las fechas, se genera una columna auxiliar en formato `AAAAMMDD` para coincidir con la clave inteligente de `DimTiempo`. Las órdenes sin envío se mapean a la clave `-1` ("Sin fecha").
+
+**Validación:**
+El paquete se valida ejecutando el script `02_validacion_carga.sql`. Se confirman 2.155 filas en `FactVentas`, 830 órdenes distintas y un monto neto total de $1.265.792,76.
 
 ## Tecnologías utilizadas
 SQL Server, SQL Server Management Studio, Visual Studio (SSIS), GitHub.
@@ -197,8 +213,8 @@ CERTAMEN2-BI/
 | Fase 1 – Análisis de datos, KPI y 4 pasos de Kimball | Listo |
 | Fase 1 – Modelo dimensional en SQL Server + diagrama | Listo |
 | Fase 1 – Script de validación de la carga | Listo |
-| Fase 1 – ETL en SSIS | Pendiente |
-| Fase 1 – Backup de KentFoodsDW cargado | Pendiente |
+| Fase 1 – ETL en SSIS | Listo |
+| Fase 1 – Backup de KentFoodsDW cargado | Listo |
 | Fase 1 – Presentación | En progreso |
 | Fase 2 – Cubo OLAP y Power BI | No iniciado |
 
