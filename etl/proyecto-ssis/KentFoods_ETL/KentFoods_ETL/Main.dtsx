@@ -11,8 +11,8 @@
   DTS:LocaleID="13322"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="9"
-  DTS:VersionGUID="{D7FAE557-1656-4FCE-9E71-3CA72969D290}">
+  DTS:VersionBuild="16"
+  DTS:VersionGUID="{4E8CD2A8-A091-44BB-86E3-B9E04F31B3AA}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -1753,6 +1753,2027 @@ INNER JOIN dbo.Categorias c ON p.CategoriaID = c.CategoriaID INNER JOIN  dbo.Pro
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
+      DTS:refId="Package\DFT_Carga_FACTVentas"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{AA78C7E8-66D1-4027-94B5-426B59377E39}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT_Carga_FACTVentas"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT_Carga_FACTVentas\ClienteKey"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="ClienteKey"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimCliente]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimCliente]) [refTable]
+where [refTable].[ClienteID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="ClienteKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ClienteID" dataType="DT_WSTR" length="5" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Empresa" dataType="DT_WSTR" length="40" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Contacto" dataType="DT_WSTR" length="30" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Ciudad" dataType="DT_WSTR" length="15" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Pais" dataType="DT_WSTR" length="15" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[ClienteID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_Carga_FACTVentas\ClienteKey.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DW_KentFoods]"
+                  connectionManagerRefId="Package.ConnectionManagers[DW_KentFoods]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_Carga_FACTVentas\ClienteKey.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\ClienteKey.Inputs[Lookup Input].Columns[ClienteID]"
+                      cachedDataType="wstr"
+                      cachedLength="5"
+                      cachedName="ClienteID"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[ClienteID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">ClienteID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\ClienteKey.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\ClienteKey.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\ClienteKey.Outputs[Lookup Match Output].Columns[ClienteKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DFT_Carga_FACTVentas\ClienteKey.Outputs[Lookup Match Output].Columns[ClienteKey]"
+                      name="ClienteKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">ClienteKey</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\ClienteKey.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\ClienteKey.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\ClienteKey.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\ClienteKey.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\ClienteKey.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\ClienteKey.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\ClienteKey.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\ClienteKey.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_Carga_FACTVentas\EmpleadoKey"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="EmpleadoKey"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimEmpleado]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimEmpleado]) [refTable]
+where [refTable].[EmpleadoID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="EmpleadoKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="EmpleadoID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NombreCompleto" dataType="DT_WSTR" length="35" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Cargo" dataType="DT_WSTR" length="30" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Ciudad" dataType="DT_WSTR" length="15" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Pais" dataType="DT_WSTR" length="15" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[EmpleadoID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_Carga_FACTVentas\EmpleadoKey.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DW_KentFoods]"
+                  connectionManagerRefId="Package.ConnectionManagers[DW_KentFoods]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_Carga_FACTVentas\EmpleadoKey.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\EmpleadoKey.Inputs[Lookup Input].Columns[EmpleadoID]"
+                      cachedDataType="i4"
+                      cachedName="EmpleadoID"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[EmpleadoID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">EmpleadoID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\EmpleadoKey.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\EmpleadoKey.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\EmpleadoKey.Outputs[Lookup Match Output].Columns[EmpleadoKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DFT_Carga_FACTVentas\EmpleadoKey.Outputs[Lookup Match Output].Columns[EmpleadoKey]"
+                      name="EmpleadoKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">EmpleadoKey</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\EmpleadoKey.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\EmpleadoKey.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\EmpleadoKey.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\EmpleadoKey.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\EmpleadoKey.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\EmpleadoKey.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\EmpleadoKey.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\EmpleadoKey.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_Carga_FACTVentas\FechaEnvioKey"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="FechaEnvioKey"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimTiempo]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimTiempo]) [refTable]
+where [refTable].[TiempoKey] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="TiempoKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Fecha" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Anio" dataType="DT_I2" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Semestre" dataType="DT_UI1" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Trimestre" dataType="DT_UI1" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Mes" dataType="DT_UI1" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NombreMes" dataType="DT_WSTR" length="15" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Dia" dataType="DT_UI1" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DiaSemana" dataType="DT_UI1" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NombreDiaSemana" dataType="DT_WSTR" length="15" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT_Carga_FACTVentas\FechaEnvioKeyAux.Outputs[Derived Column Output].Columns[FechaEnvioKeyAux]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_Carga_FACTVentas\FechaEnvioKey.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DW_KentFoods]"
+                  connectionManagerRefId="Package.ConnectionManagers[DW_KentFoods]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_Carga_FACTVentas\FechaEnvioKey.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\FechaEnvioKey.Inputs[Lookup Input].Columns[FechaEnvioKeyAux]"
+                      cachedDataType="i4"
+                      cachedName="FechaEnvioKeyAux"
+                      lineageId="Package\DFT_Carga_FACTVentas\FechaEnvioKeyAux.Outputs[Derived Column Output].Columns[FechaEnvioKeyAux]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">TiempoKey</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\FechaEnvioKey.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\FechaEnvioKey.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\FechaEnvioKey.Outputs[Lookup Match Output].Columns[TiempoKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DFT_Carga_FACTVentas\FechaEnvioKey.Outputs[Lookup Match Output].Columns[TiempoKey]"
+                      name="TiempoKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">TiempoKey</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\FechaEnvioKey.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\FechaEnvioKey.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\FechaEnvioKey.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\FechaEnvioKey.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\FechaEnvioKey.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\FechaEnvioKey.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\FechaEnvioKey.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\FechaEnvioKey.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_Carga_FACTVentas\FechaEnvioKeyAux"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="FechaEnvioKeyAux"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT_Carga_FACTVentas\FechaEnvioKeyAux.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\FechaEnvioKeyAux.Inputs[Derived Column Input].Columns[FechaEnvio]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaEnvio"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[FechaEnvio]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\FechaEnvioKeyAux.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\FechaEnvioKeyAux.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\FechaEnvioKeyAux.Outputs[Derived Column Output].Columns[FechaEnvioKeyAux]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT_Carga_FACTVentas\FechaEnvioKeyAux.Outputs[Derived Column Output].Columns[FechaEnvioKeyAux]"
+                      name="FechaEnvioKeyAux"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[FechaEnvio]}) ? (DT_I4)(-1) : (DT_I4)([YEAR](#{Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[FechaEnvio]}) * 10000 + [MONTH](#{Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[FechaEnvio]}) * 100 + [DAY](#{Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[FechaEnvio]}))</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(FechaEnvio) ? (DT_I4)(-1) : (DT_I4)(YEAR(FechaEnvio) * 10000 + MONTH(FechaEnvio) * 100 + DAY(FechaEnvio))</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\FechaEnvioKeyAux.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\FechaEnvioKeyAux.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\FechaEnvioKeyAux.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\FechaEnvioKeyAux.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\FechaEnvioKeyAux.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\FechaEnvioKeyAux.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_Carga_FACTVentas\FechaOrdenKey"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="FechaOrdenKey"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimTiempo]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimTiempo]) [refTable]
+where [refTable].[TiempoKey] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="TiempoKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Fecha" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Anio" dataType="DT_I2" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Semestre" dataType="DT_UI1" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Trimestre" dataType="DT_UI1" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Mes" dataType="DT_UI1" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NombreMes" dataType="DT_WSTR" length="15" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Dia" dataType="DT_UI1" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DiaSemana" dataType="DT_UI1" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NombreDiaSemana" dataType="DT_WSTR" length="15" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT_Carga_FACTVentas\FechaOrdenKeyAux.Outputs[Derived Column Output].Columns[FechaOrdenKeyAux]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_Carga_FACTVentas\FechaOrdenKey.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DW_KentFoods]"
+                  connectionManagerRefId="Package.ConnectionManagers[DW_KentFoods]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_Carga_FACTVentas\FechaOrdenKey.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\FechaOrdenKey.Inputs[Lookup Input].Columns[FechaOrdenKeyAux]"
+                      cachedDataType="i4"
+                      cachedName="FechaOrdenKeyAux"
+                      lineageId="Package\DFT_Carga_FACTVentas\FechaOrdenKeyAux.Outputs[Derived Column Output].Columns[FechaOrdenKeyAux]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">TiempoKey</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\FechaOrdenKey.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\FechaOrdenKey.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\FechaOrdenKey.Outputs[Lookup Match Output].Columns[TiempoKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DFT_Carga_FACTVentas\FechaOrdenKey.Outputs[Lookup Match Output].Columns[TiempoKey]"
+                      name="TiempoKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">TiempoKey</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\FechaOrdenKey.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\FechaOrdenKey.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\FechaOrdenKey.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\FechaOrdenKey.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\FechaOrdenKey.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\FechaOrdenKey.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\FechaOrdenKey.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\FechaOrdenKey.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_Carga_FACTVentas\FechaOrdenKeyAux"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="FechaOrdenKeyAux"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT_Carga_FACTVentas\FechaOrdenKeyAux.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\FechaOrdenKeyAux.Inputs[Derived Column Input].Columns[FechaOrden]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaOrden"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[FechaOrden]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\FechaOrdenKeyAux.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\FechaOrdenKeyAux.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\FechaOrdenKeyAux.Outputs[Derived Column Output].Columns[FechaOrdenKeyAux]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT_Carga_FACTVentas\FechaOrdenKeyAux.Outputs[Derived Column Output].Columns[FechaOrdenKeyAux]"
+                      name="FechaOrdenKeyAux"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_I4)([YEAR](#{Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[FechaOrden]}) * 10000 + [MONTH](#{Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[FechaOrden]}) * 100 + [DAY](#{Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[FechaOrden]}))</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_I4)(YEAR(FechaOrden) * 10000 + MONTH(FechaOrden) * 100 + DAY(FechaOrden))</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\FechaOrdenKeyAux.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\FechaOrdenKeyAux.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\FechaOrdenKeyAux.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\FechaOrdenKeyAux.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\FechaOrdenKeyAux.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\FechaOrdenKeyAux.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="MontoBruto, DiasDespacho"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho.Inputs[Derived Column Input].Columns[Cantidad]"
+                      cachedDataType="i2"
+                      cachedName="Cantidad"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[Cantidad]" />
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho.Inputs[Derived Column Input].Columns[PrecioUnitario]"
+                      cachedDataType="cy"
+                      cachedName="PrecioUnitario"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[PrecioUnitario]" />
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho.Inputs[Derived Column Input].Columns[FechaOrden]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaOrden"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[FechaOrden]" />
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho.Inputs[Derived Column Input].Columns[FechaEnvio]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="FechaEnvio"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[FechaEnvio]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho.Outputs[Derived Column Output].Columns[MontoBruto]"
+                      dataType="decimal"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho.Outputs[Derived Column Output].Columns[MontoBruto]"
+                      name="MontoBruto"
+                      scale="12"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_DECIMAL,12)(#{Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[Cantidad]} * #{Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[PrecioUnitario]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_DECIMAL,12)(Cantidad * PrecioUnitario)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho.Outputs[Derived Column Output].Columns[DiasDespacho]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho.Outputs[Derived Column Output].Columns[DiasDespacho]"
+                      name="DiasDespacho"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[FechaEnvio]}) ? (DT_I2)0 : (DT_I2)[DATEDIFF]("day",#{Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[FechaOrden]},#{Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[FechaEnvio]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(FechaEnvio) ? (DT_I2)0 : (DT_I2)DATEDIFF("day",FechaOrden,FechaEnvio)</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_Carga_FACTVentas\MontoDescuento"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="MontoDescuento"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT_Carga_FACTVentas\MontoDescuento.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\MontoDescuento.Inputs[Derived Column Input].Columns[Descuento]"
+                      cachedDataType="r4"
+                      cachedName="Descuento"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[Descuento]" />
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\MontoDescuento.Inputs[Derived Column Input].Columns[MontoBruto]"
+                      cachedDataType="decimal"
+                      cachedName="MontoBruto"
+                      cachedScale="12"
+                      lineageId="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho.Outputs[Derived Column Output].Columns[MontoBruto]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\MontoDescuento.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\MontoDescuento.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\MontoDescuento.Outputs[Derived Column Output].Columns[MontoDescuento]"
+                      dataType="decimal"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT_Carga_FACTVentas\MontoDescuento.Outputs[Derived Column Output].Columns[MontoDescuento]"
+                      name="MontoDescuento"
+                      scale="12"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_DECIMAL,12)(#{Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho.Outputs[Derived Column Output].Columns[MontoBruto]} * #{Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[Descuento]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_DECIMAL,12)(MontoBruto * Descuento)</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\MontoDescuento.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\MontoDescuento.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\MontoDescuento.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\MontoDescuento.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\MontoDescuento.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\MontoDescuento.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_Carga_FACTVentas\MontoNeto"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="MontoNeto"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT_Carga_FACTVentas\MontoNeto.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\MontoNeto.Inputs[Derived Column Input].Columns[MontoBruto]"
+                      cachedDataType="decimal"
+                      cachedName="MontoBruto"
+                      cachedScale="12"
+                      lineageId="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho.Outputs[Derived Column Output].Columns[MontoBruto]" />
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\MontoNeto.Inputs[Derived Column Input].Columns[MontoDescuento]"
+                      cachedDataType="decimal"
+                      cachedName="MontoDescuento"
+                      cachedScale="12"
+                      lineageId="Package\DFT_Carga_FACTVentas\MontoDescuento.Outputs[Derived Column Output].Columns[MontoDescuento]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\MontoNeto.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\MontoNeto.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\MontoNeto.Outputs[Derived Column Output].Columns[MontoNeto]"
+                      dataType="decimal"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT_Carga_FACTVentas\MontoNeto.Outputs[Derived Column Output].Columns[MontoNeto]"
+                      name="MontoNeto"
+                      scale="12"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_DECIMAL,12)(#{Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho.Outputs[Derived Column Output].Columns[MontoBruto]} - #{Package\DFT_Carga_FACTVentas\MontoDescuento.Outputs[Derived Column Output].Columns[MontoDescuento]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_DECIMAL,12)(MontoBruto - MontoDescuento)</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\MontoNeto.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\MontoNeto.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\MontoNeto.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\MontoNeto.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\MontoNeto.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\MontoNeto.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_Carga_FACTVentas\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[FactVentas]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DW_KentFoods]"
+                  connectionManagerRefId="Package.ConnectionManagers[DW_KentFoods]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[OrdenID]"
+                      cachedDataType="i4"
+                      cachedName="OrdenID"
+                      externalMetadataColumnId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[OrdenID]"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[OrdenID]" />
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Cantidad]"
+                      cachedDataType="i2"
+                      cachedName="Cantidad"
+                      externalMetadataColumnId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Cantidad]"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[Cantidad]" />
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PrecioUnitario]"
+                      cachedDataType="cy"
+                      cachedName="PrecioUnitario"
+                      externalMetadataColumnId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PrecioUnitario]"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[PrecioUnitario]" />
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Descuento]"
+                      cachedDataType="r4"
+                      cachedName="Descuento"
+                      externalMetadataColumnId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Descuento]"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[Descuento]" />
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[MontoBruto]"
+                      cachedDataType="decimal"
+                      cachedName="MontoBruto"
+                      cachedScale="12"
+                      externalMetadataColumnId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[MontoBruto]"
+                      lineageId="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho.Outputs[Derived Column Output].Columns[MontoBruto]" />
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DiasDespacho]"
+                      cachedDataType="i2"
+                      cachedName="DiasDespacho"
+                      externalMetadataColumnId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DiasDespacho]"
+                      lineageId="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho.Outputs[Derived Column Output].Columns[DiasDespacho]" />
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[MontoDescuento]"
+                      cachedDataType="decimal"
+                      cachedName="MontoDescuento"
+                      cachedScale="12"
+                      externalMetadataColumnId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[MontoDescuento]"
+                      lineageId="Package\DFT_Carga_FACTVentas\MontoDescuento.Outputs[Derived Column Output].Columns[MontoDescuento]" />
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[MontoNeto]"
+                      cachedDataType="decimal"
+                      cachedName="MontoNeto"
+                      cachedScale="12"
+                      externalMetadataColumnId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[MontoNeto]"
+                      lineageId="Package\DFT_Carga_FACTVentas\MontoNeto.Outputs[Derived Column Output].Columns[MontoNeto]" />
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ClienteKey]"
+                      cachedDataType="i4"
+                      cachedName="ClienteKey"
+                      externalMetadataColumnId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ClienteKey]"
+                      lineageId="Package\DFT_Carga_FACTVentas\ClienteKey.Outputs[Lookup Match Output].Columns[ClienteKey]" />
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ProductoKey]"
+                      cachedDataType="i4"
+                      cachedName="ProductoKey"
+                      externalMetadataColumnId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ProductoKey]"
+                      lineageId="Package\DFT_Carga_FACTVentas\ProductoKey.Outputs[Lookup Match Output].Columns[ProductoKey]" />
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[EmpleadoKey]"
+                      cachedDataType="i4"
+                      cachedName="EmpleadoKey"
+                      externalMetadataColumnId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EmpleadoKey]"
+                      lineageId="Package\DFT_Carga_FACTVentas\EmpleadoKey.Outputs[Lookup Match Output].Columns[EmpleadoKey]" />
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TransportistaKey]"
+                      cachedDataType="i4"
+                      cachedName="TransportistaKey"
+                      externalMetadataColumnId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TransportistaKey]"
+                      lineageId="Package\DFT_Carga_FACTVentas\TransportistaKey.Outputs[Lookup Match Output].Columns[TransportistaKey]" />
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TiempoKey]"
+                      cachedDataType="i4"
+                      cachedName="TiempoKey"
+                      externalMetadataColumnId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FechaOrdenKey]"
+                      lineageId="Package\DFT_Carga_FACTVentas\FechaOrdenKey.Outputs[Lookup Match Output].Columns[TiempoKey]" />
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TiempoKey1]"
+                      cachedDataType="i4"
+                      cachedName="TiempoKey"
+                      externalMetadataColumnId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FechaEnvioKey]"
+                      lineageId="Package\DFT_Carga_FACTVentas\FechaEnvioKey.Outputs[Lookup Match Output].Columns[TiempoKey]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[OrdenID]"
+                      dataType="i4"
+                      name="OrdenID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ProductoKey]"
+                      dataType="i4"
+                      name="ProductoKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ClienteKey]"
+                      dataType="i4"
+                      name="ClienteKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EmpleadoKey]"
+                      dataType="i4"
+                      name="EmpleadoKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TransportistaKey]"
+                      dataType="i4"
+                      name="TransportistaKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FechaOrdenKey]"
+                      dataType="i4"
+                      name="FechaOrdenKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FechaEnvioKey]"
+                      dataType="i4"
+                      name="FechaEnvioKey" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Cantidad]"
+                      dataType="i2"
+                      name="Cantidad" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PrecioUnitario]"
+                      dataType="numeric"
+                      name="PrecioUnitario"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Descuento]"
+                      dataType="numeric"
+                      name="Descuento"
+                      precision="4"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[MontoBruto]"
+                      dataType="numeric"
+                      name="MontoBruto"
+                      precision="12"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[MontoDescuento]"
+                      dataType="numeric"
+                      name="MontoDescuento"
+                      precision="12"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[MontoNeto]"
+                      dataType="numeric"
+                      name="MontoNeto"
+                      precision="12"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DiasDespacho]"
+                      dataType="i2"
+                      name="DiasDespacho" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_Carga_FACTVentas\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 
+do.OrdenID, 
+do.ProductoID, 
+do.Cantidad, 
+do.PrecioUnitario, 
+do.Descuento, 
+o.ClienteID, 
+o.EmpleadoID, 
+o.EnviadoPor AS TransportistaID, 
+o.FechaOrden, 
+o.FechaEnvio 
+FROM dbo.DetalleOrden do 
+INNER JOIN dbo.Ordenes o ON do.OrdenID = o.OrdenID;</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[OLTP_KentFoods]"
+                  connectionManagerRefId="Package.ConnectionManagers[OLTP_KentFoods]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[OrdenID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[OrdenID]"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[OrdenID]"
+                      name="OrdenID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[ProductoID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ProductoID]"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[ProductoID]"
+                      name="ProductoID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[Cantidad]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Cantidad]"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[Cantidad]"
+                      name="Cantidad"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[PrecioUnitario]"
+                      dataType="cy"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PrecioUnitario]"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[PrecioUnitario]"
+                      name="PrecioUnitario"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[Descuento]"
+                      dataType="r4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Descuento]"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[Descuento]"
+                      name="Descuento"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[ClienteID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ClienteID]"
+                      length="5"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[ClienteID]"
+                      name="ClienteID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[EmpleadoID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EmpleadoID]"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[EmpleadoID]"
+                      name="EmpleadoID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[FechaOrden]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FechaOrden]"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[FechaOrden]"
+                      name="FechaOrden"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[FechaEnvio]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FechaEnvio]"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[FechaEnvio]"
+                      name="FechaEnvio"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[TransportistaID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TransportistaID]"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[TransportistaID]"
+                      name="TransportistaID"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[OrdenID]"
+                      dataType="i4"
+                      name="OrdenID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ProductoID]"
+                      dataType="i4"
+                      name="ProductoID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Cantidad]"
+                      dataType="i2"
+                      name="Cantidad" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PrecioUnitario]"
+                      dataType="cy"
+                      name="PrecioUnitario" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Descuento]"
+                      dataType="r4"
+                      name="Descuento" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ClienteID]"
+                      dataType="wstr"
+                      length="5"
+                      name="ClienteID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EmpleadoID]"
+                      dataType="i4"
+                      name="EmpleadoID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FechaOrden]"
+                      dataType="dbTimeStamp"
+                      name="FechaOrden" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FechaEnvio]"
+                      dataType="dbTimeStamp"
+                      name="FechaEnvio" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TransportistaID]"
+                      dataType="i4"
+                      name="TransportistaID" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[OrdenID]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[OrdenID]"
+                      name="OrdenID" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ProductoID]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ProductoID]"
+                      name="ProductoID" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Cantidad]"
+                      dataType="i2"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Cantidad]"
+                      name="Cantidad" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PrecioUnitario]"
+                      dataType="cy"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PrecioUnitario]"
+                      name="PrecioUnitario" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Descuento]"
+                      dataType="r4"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Descuento]"
+                      name="Descuento" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ClienteID]"
+                      dataType="wstr"
+                      length="5"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ClienteID]"
+                      name="ClienteID" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EmpleadoID]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EmpleadoID]"
+                      name="EmpleadoID" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TransportistaID]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TransportistaID]"
+                      name="TransportistaID" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FechaOrden]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FechaOrden]"
+                      name="FechaOrden" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FechaEnvio]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FechaEnvio]"
+                      name="FechaEnvio" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_Carga_FACTVentas\ProductoKey"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="ProductoKey"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimProducto]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimProducto]) [refTable]
+where [refTable].[ProductoID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="ProductoKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ProductoID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Producto" dataType="DT_WSTR" length="40" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CantidadPorUnidad" dataType="DT_WSTR" length="20" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Categoria" dataType="DT_WSTR" length="15" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Proveedor" dataType="DT_WSTR" length="40" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PaisProveedor" dataType="DT_WSTR" length="15" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[ProductoID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_Carga_FACTVentas\ProductoKey.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DW_KentFoods]"
+                  connectionManagerRefId="Package.ConnectionManagers[DW_KentFoods]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_Carga_FACTVentas\ProductoKey.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\ProductoKey.Inputs[Lookup Input].Columns[ProductoID]"
+                      cachedDataType="i4"
+                      cachedName="ProductoID"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[ProductoID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">ProductoID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\ProductoKey.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\ProductoKey.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\ProductoKey.Outputs[Lookup Match Output].Columns[ProductoKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DFT_Carga_FACTVentas\ProductoKey.Outputs[Lookup Match Output].Columns[ProductoKey]"
+                      name="ProductoKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">ProductoKey</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\ProductoKey.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\ProductoKey.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\ProductoKey.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\ProductoKey.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\ProductoKey.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\ProductoKey.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\ProductoKey.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\ProductoKey.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_Carga_FACTVentas\TransportistaKey"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="TransportistaKey"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimTransportista]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimTransportista]) [refTable]
+where [refTable].[TransportistaID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="TransportistaKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="TransportistaID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Transportista" dataType="DT_WSTR" length="40" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[TransportistaID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_Carga_FACTVentas\TransportistaKey.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DW_KentFoods]"
+                  connectionManagerRefId="Package.ConnectionManagers[DW_KentFoods]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_Carga_FACTVentas\TransportistaKey.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_Carga_FACTVentas\TransportistaKey.Inputs[Lookup Input].Columns[TransportistaID]"
+                      cachedDataType="i4"
+                      cachedName="TransportistaID"
+                      lineageId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output].Columns[TransportistaID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">TransportistaID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\TransportistaKey.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\TransportistaKey.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\TransportistaKey.Outputs[Lookup Match Output].Columns[TransportistaKey]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DFT_Carga_FACTVentas\TransportistaKey.Outputs[Lookup Match Output].Columns[TransportistaKey]"
+                      name="TransportistaKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">TransportistaKey</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\TransportistaKey.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\TransportistaKey.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_Carga_FACTVentas\TransportistaKey.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT_Carga_FACTVentas\TransportistaKey.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\TransportistaKey.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\TransportistaKey.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_Carga_FACTVentas\TransportistaKey.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_Carga_FACTVentas\TransportistaKey.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT_Carga_FACTVentas.Paths[Derived Column Output]"
+              endId="Package\DFT_Carga_FACTVentas\MontoDescuento.Inputs[Derived Column Input]"
+              name="Derived Column Output"
+              startId="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DFT_Carga_FACTVentas.Paths[Derived Column Output1]"
+              endId="Package\DFT_Carga_FACTVentas\MontoNeto.Inputs[Derived Column Input]"
+              name="Derived Column Output"
+              startId="Package\DFT_Carga_FACTVentas\MontoDescuento.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DFT_Carga_FACTVentas.Paths[Derived Column Output2]"
+              endId="Package\DFT_Carga_FACTVentas\ClienteKey.Inputs[Lookup Input]"
+              name="Derived Column Output"
+              startId="Package\DFT_Carga_FACTVentas\MontoNeto.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DFT_Carga_FACTVentas.Paths[Derived Column Output3]"
+              endId="Package\DFT_Carga_FACTVentas\FechaOrdenKey.Inputs[Lookup Input]"
+              name="Derived Column Output"
+              startId="Package\DFT_Carga_FACTVentas\FechaOrdenKeyAux.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DFT_Carga_FACTVentas.Paths[Derived Column Output4]"
+              endId="Package\DFT_Carga_FACTVentas\FechaEnvioKey.Inputs[Lookup Input]"
+              name="Derived Column Output"
+              startId="Package\DFT_Carga_FACTVentas\FechaEnvioKeyAux.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DFT_Carga_FACTVentas.Paths[Lookup Match Output]"
+              endId="Package\DFT_Carga_FACTVentas\ProductoKey.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT_Carga_FACTVentas\ClienteKey.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT_Carga_FACTVentas.Paths[Lookup Match Output1]"
+              endId="Package\DFT_Carga_FACTVentas\EmpleadoKey.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT_Carga_FACTVentas\ProductoKey.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT_Carga_FACTVentas.Paths[Lookup Match Output2]"
+              endId="Package\DFT_Carga_FACTVentas\TransportistaKey.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT_Carga_FACTVentas\EmpleadoKey.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT_Carga_FACTVentas.Paths[Lookup Match Output3]"
+              endId="Package\DFT_Carga_FACTVentas\FechaOrdenKeyAux.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT_Carga_FACTVentas\TransportistaKey.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT_Carga_FACTVentas.Paths[Lookup Match Output4]"
+              endId="Package\DFT_Carga_FACTVentas\FechaEnvioKeyAux.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT_Carga_FACTVentas\FechaOrdenKey.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT_Carga_FACTVentas.Paths[Lookup Match Output5]"
+              endId="Package\DFT_Carga_FACTVentas\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT_Carga_FACTVentas\FechaEnvioKey.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT_Carga_FACTVentas.Paths[OLE DB Source Output]"
+              endId="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho.Inputs[Derived Column Input]"
+              name="OLE DB Source Output"
+              startId="Package\DFT_Carga_FACTVentas\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
       DTS:refId="Package\SQL_Delete_Tablas"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:DTSID="{6855DA99-854A-4E9B-B1E6-9C40EA6CBE69}"
@@ -1802,6 +3823,38 @@ INNER JOIN dbo.Categorias c ON p.CategoriaID = c.CategoriaID INNER JOIN  dbo.Pro
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 3"
       DTS:To="Package\DFT_Carga_DimProducto" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{3C543974-7B72-4089-B558-CC425AD87667}"
+      DTS:From="Package\DFT_Carga_DimCliente"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\DFT_Carga_FACTVentas" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
+      DTS:CreationName=""
+      DTS:DTSID="{4F10F1DD-3C2A-4239-A79E-B13500A12E4D}"
+      DTS:From="Package\DFT_Carga_DimTransportista"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 5"
+      DTS:To="Package\DFT_Carga_FACTVentas" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 6]"
+      DTS:CreationName=""
+      DTS:DTSID="{C4FB79E2-CEC0-4DEB-9414-5809CA789500}"
+      DTS:From="Package\DFT_Carga_DimEmpleado"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 6"
+      DTS:To="Package\DFT_Carga_FACTVentas" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 7]"
+      DTS:CreationName=""
+      DTS:DTSID="{B33A721D-2406-4973-8605-E1CF8A3E2478}"
+      DTS:From="Package\DFT_Carga_DimProducto"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 7"
+      DTS:To="Package\DFT_Carga_FACTVentas" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -1818,45 +3871,45 @@ INNER JOIN dbo.Categorias c ON p.CategoriaID = c.CategoriaID INNER JOIN  dbo.Pro
         <NodeLayout
           Size="188,42"
           Id="Package\DFT_Carga_DimCliente"
-          TopLeft="57.2916658129545,177.449996826947" />
+          TopLeft="18.7499997206034,121.116664500932" />
         <NodeLayout
           Size="202.666666666667,42.6666666666667"
           Id="Package\DFT_Carga_DimEmpleado"
-          TopLeft="462.291659777984,176.149996850193" />
+          TopLeft="479.999992847443,134.983330919644" />
         <NodeLayout
           Size="218.666666666667,42.6666666666667"
           Id="Package\DFT_Carga_DimTransportista"
-          TopLeft="0.624999990686646,59.5833322679004" />
+          TopLeft="239.166663102806,135.416664245228" />
         <NodeLayout
           Size="170.666666666667,42.6666666666667"
           Id="Package\SQL_Delete_Tablas"
-          TopLeft="273.541662590578,1.29999997675386" />
+          TopLeft="368.333327844739,1.29999997675385" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="273.541662590578,22.6333333100872">
+          TopLeft="437.399994511406,43.9666666434205">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-54.2499959332251,58.2833322911465"
+              EndConnector="-88.8999980752669,91.4499976018076"
               Start="0,0"
-              End="-46.7499959332251,58.2833322911465">
+              End="-88.8999980752669,83.9499976018076">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="-23.1249979666126,0" />
+                    End="0,36.907684592173" />
                   <mssgle:CubicBezierSegment
-                    Point1="-23.1249979666126,0"
-                    Point2="-27.1249979666126,0"
-                    Point3="-27.1249979666126,4" />
+                    Point1="0,36.907684592173"
+                    Point2="0,40.907684592173"
+                    Point3="-4,40.907684592173" />
                   <mssgle:LineSegment
-                    End="-27.1249979666126,54.2833322911465" />
+                    End="-84.8999980752669,40.907684592173" />
                   <mssgle:CubicBezierSegment
-                    Point1="-27.1249979666126,54.2833322911465"
-                    Point2="-27.1249979666126,58.2833322911465"
-                    Point3="-31.1249979666126,58.2833322911465" />
+                    Point1="-84.8999980752669,40.907684592173"
+                    Point2="-88.8999980752669,40.907684592173"
+                    Point3="-88.8999980752669,44.907684592173" />
                   <mssgle:LineSegment
-                    End="-46.7499959332251,58.2833322911465" />
+                    End="-88.8999980752669,83.9499976018076" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1867,30 +3920,30 @@ INNER JOIN dbo.Categorias c ON p.CategoriaID = c.CategoriaID INNER JOIN  dbo.Pro
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="331.763884812801,43.9666666434205">
+          TopLeft="404.866661178072,43.9666666434205">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-180.472218999846,133.483330183526"
+              EndConnector="-292.116661457469,77.1499978575116"
               Start="0,0"
-              End="-180.472218999846,125.983330183526">
+              End="-292.116661457469,69.6499978575116">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,50.1372020248977" />
+                    End="0,19.1281175196479" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,50.1372020248977"
-                    Point2="0,54.1372020248977"
-                    Point3="-4,54.1372020248977" />
+                    Point1="0,19.1281175196479"
+                    Point2="0,23.1281175196479"
+                    Point3="-4,23.1281175196479" />
                   <mssgle:LineSegment
-                    End="-176.472218999846,54.1372020248977" />
+                    End="-288.116661457469,23.1281175196479" />
                   <mssgle:CubicBezierSegment
-                    Point1="-176.472218999846,54.1372020248977"
-                    Point2="-180.472218999846,54.1372020248977"
-                    Point3="-180.472218999846,58.1372020248977" />
+                    Point1="-288.116661457469,23.1281175196479"
+                    Point2="-292.116661457469,23.1281175196479"
+                    Point3="-292.116661457469,27.1281175196479" />
                   <mssgle:LineSegment
-                    End="-180.472218999846,125.983330183526" />
+                    End="-292.116661457469,69.6499978575116" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1901,30 +3954,30 @@ INNER JOIN dbo.Categorias c ON p.CategoriaID = c.CategoriaID INNER JOIN  dbo.Pro
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="358.874995923912,43.9666666434205">
+          TopLeft="469.933327844739,43.9666666434205">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="204.749997187406,132.183330206772"
+              EndConnector="111.399998336037,91.0166642762231"
               Start="0,0"
-              End="204.749997187406,124.683330206772">
+              End="111.399998336037,83.5166642762231">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,62.0916651033862" />
+                    End="0,36.7138446416956" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,62.0916651033862"
-                    Point2="0,66.0916651033862"
-                    Point3="4,66.0916651033862" />
+                    Point1="0,36.7138446416956"
+                    Point2="0,40.7138446416956"
+                    Point3="4,40.7138446416956" />
                   <mssgle:LineSegment
-                    End="200.749997187406,66.0916651033862" />
+                    End="107.399998336037,40.7138446416956" />
                   <mssgle:CubicBezierSegment
-                    Point1="200.749997187406,66.0916651033862"
-                    Point2="204.749997187406,66.0916651033862"
-                    Point3="204.749997187406,70.0916651033862" />
+                    Point1="107.399998336037,40.7138446416956"
+                    Point2="111.399998336037,40.7138446416956"
+                    Point3="111.399998336037,44.7138446416956" />
                   <mssgle:LineSegment
-                    End="204.749997187406,124.683330206772" />
+                    End="111.399998336037,83.5166642762231" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1936,33 +3989,173 @@ INNER JOIN dbo.Categorias c ON p.CategoriaID = c.CategoriaID INNER JOIN  dbo.Pro
         <NodeLayout
           Size="197.333333333334,42.6666666666667"
           Id="Package\DFT_Carga_DimProducto"
-          TopLeft="519.791658921167,86.6666651169459" />
+          TopLeft="706.249989476055,127.833331047495" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 3]"
-          TopLeft="399.541662590578,43.9666666434205">
+          TopLeft="502.466661178072,43.9666666434205">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="218.916662997256,42.6999984735253"
+              EndConnector="302.449994964649,83.8666644040747"
               Start="0,0"
-              End="218.916662997256,35.1999984735253">
+              End="302.449994964649,76.3666644040747">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,10.671281526801" />
+                    End="0,21.1416477535191" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,10.671281526801"
-                    Point2="0,14.671281526801"
-                    Point3="4,14.671281526801" />
+                    Point1="0,21.1416477535191"
+                    Point2="0,25.1416477535191"
+                    Point3="4,25.1416477535191" />
                   <mssgle:LineSegment
-                    End="214.916662997256,14.671281526801" />
+                    End="298.449994964649,25.1416477535191" />
                   <mssgle:CubicBezierSegment
-                    Point1="214.916662997256,14.671281526801"
-                    Point2="218.916662997256,14.671281526801"
-                    Point3="218.916662997256,18.671281526801" />
+                    Point1="298.449994964649,25.1416477535191"
+                    Point2="302.449994964649,25.1416477535191"
+                    Point3="302.449994964649,29.1416477535191" />
                   <mssgle:LineSegment
-                    End="218.916662997256,35.1999984735253" />
+                    End="302.449994964649,76.3666644040747" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="194.666666666667,42.6666666666667"
+          Id="Package\DFT_Carga_FACTVentas"
+          TopLeft="347.916661482304,332.58332738628" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="112.749999720603,163.116664500932">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="276.499995095034,169.466662885348"
+              Start="0,0"
+              End="276.499995095034,161.966662885348">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,114.952561448369" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,114.952561448369"
+                    Point2="0,118.952561448369"
+                    Point3="4,118.952561448369" />
+                  <mssgle:LineSegment
+                    End="272.499995095034,118.952561448369" />
+                  <mssgle:CubicBezierSegment
+                    Point1="272.499995095034,118.952561448369"
+                    Point2="276.499995095034,118.952561448369"
+                    Point3="276.499995095034,122.952561448369" />
+                  <mssgle:LineSegment
+                    End="276.499995095034,161.966662885348" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="348.499996436139,178.083330911895">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="78.0833317128321,154.499996474385"
+              Start="0,0"
+              End="78.0833317128321,146.999996474385">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,81.4431798684099" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,81.4431798684099"
+                    Point2="0,85.4431798684099"
+                    Point3="4,85.4431798684099" />
+                  <mssgle:LineSegment
+                    End="74.0833317128321,85.4431798684099" />
+                  <mssgle:CubicBezierSegment
+                    Point1="74.0833317128321,85.4431798684099"
+                    Point2="78.0833317128321,85.4431798684099"
+                    Point3="78.0833317128321,89.4431798684099" />
+                  <mssgle:LineSegment
+                    End="78.0833317128321,146.999996474385" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 6]"
+          TopLeft="581.333326180776,177.64999758631">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-117.416664698472,154.93332979997"
+              Start="0,0"
+              End="-117.416664698472,147.43332979997">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,81.6828263287711" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,81.6828263287711"
+                    Point2="0,85.6828263287711"
+                    Point3="-4,85.6828263287711" />
+                  <mssgle:LineSegment
+                    End="-113.416664698472,85.6828263287711" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-113.416664698472,85.6828263287711"
+                    Point2="-117.416664698472,85.6828263287711"
+                    Point3="-117.416664698472,89.6828263287711" />
+                  <mssgle:LineSegment
+                    End="-117.416664698472,147.43332979997" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 7]"
+          TopLeft="804.916656142721,170.499997714162">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-303.666661327084,162.083329672118"
+              Start="0,0"
+              End="-303.666661327084,154.583329672118">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,109.770029481391" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,109.770029481391"
+                    Point2="0,113.770029481391"
+                    Point3="-4,113.770029481391" />
+                  <mssgle:LineSegment
+                    End="-299.666661327084,113.770029481391" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-299.666661327084,113.770029481391"
+                    Point2="-303.666661327084,113.770029481391"
+                    Point3="-303.666661327084,117.770029481391" />
+                  <mssgle:LineSegment
+                    End="-303.666661327084,154.583329672118" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1978,7 +4171,7 @@ INNER JOIN dbo.Categorias c ON p.CategoriaID = c.CategoriaID INNER JOIN  dbo.Pro
     design-time-name="Package\DFT_Carga_DimCliente">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="150.666666666667,42.6666666666667"
           Id="Package\DFT_Carga_DimCliente\OLE DB Source"
@@ -2006,7 +4199,9 @@ INNER JOIN dbo.Categorias c ON p.CategoriaID = c.CategoriaID INNER JOIN  dbo.Pro
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -2042,11 +4237,7 @@ INNER JOIN dbo.Categorias c ON p.CategoriaID = c.CategoriaID INNER JOIN  dbo.Pro
     design-time-name="Package\DFT_Carga_DimEmpleado">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
-        <NodeLayout
-          Size="150.666666666667,42.6666666666667"
-          Id="Package\DFT_Carga_DimEmpleado\OLE DB Source"
-          TopLeft="373,32" />
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="172,42.6666666666667"
           Id="Package\DFT_Carga_DimEmpleado\OLE DB Destination"
@@ -2055,6 +4246,10 @@ INNER JOIN dbo.Categorias c ON p.CategoriaID = c.CategoriaID INNER JOIN  dbo.Pro
           Size="154.666666666667,42.6666666666667"
           Id="Package\DFT_Carga_DimEmpleado\Derived Column"
           TopLeft="390,100" />
+        <NodeLayout
+          Size="150.666666666667,42.6666666666667"
+          Id="Package\DFT_Carga_DimEmpleado\OLE DB Source"
+          TopLeft="373,32" />
         <EdgeLayout
           Id="Package\DFT_Carga_DimEmpleado.Paths[OLE DB Source Output]"
           TopLeft="448.333333333333,74.6666666666667">
@@ -2086,7 +4281,9 @@ INNER JOIN dbo.Categorias c ON p.CategoriaID = c.CategoriaID INNER JOIN  dbo.Pro
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -2120,7 +4317,9 @@ INNER JOIN dbo.Categorias c ON p.CategoriaID = c.CategoriaID INNER JOIN  dbo.Pro
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -2156,7 +4355,7 @@ INNER JOIN dbo.Categorias c ON p.CategoriaID = c.CategoriaID INNER JOIN  dbo.Pro
     design-time-name="Package\DFT_Carga_DimTransportista">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="150.666666666667,42.6666666666667"
           Id="Package\DFT_Carga_DimTransportista\OLE DB Source"
@@ -2196,7 +4395,9 @@ INNER JOIN dbo.Categorias c ON p.CategoriaID = c.CategoriaID INNER JOIN  dbo.Pro
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -2276,6 +4477,501 @@ INNER JOIN dbo.Categorias c ON p.CategoriaID = c.CategoriaID INNER JOIN  dbo.Pro
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\DFT_Carga_DimProducto\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\DFT_Carga_FACTVentas">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="150.666666666667,42.6666666666667"
+          Id="Package\DFT_Carga_FACTVentas\OLE DB Source"
+          TopLeft="401,71" />
+        <NodeLayout
+          Size="206.666666666667,42.6666666666667"
+          Id="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho"
+          TopLeft="380,175" />
+        <EdgeLayout
+          Id="Package\DFT_Carga_FACTVentas.Paths[OLE DB Source Output]"
+          TopLeft="479.833333333333,113.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,61.3333333333333"
+              Start="0,0"
+              End="0,53.8333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,53.8333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="158.666666666667,42.6666666666667"
+          Id="Package\DFT_Carga_FACTVentas\MontoDescuento"
+          TopLeft="402,253" />
+        <EdgeLayout
+          Id="Package\DFT_Carga_FACTVentas.Paths[Derived Column Output]"
+          TopLeft="482.333333333333,217.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,35.3333333333333"
+              Start="0,0"
+              End="0,27.8333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.8333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="131.333333333334,42.6666666666667"
+          Id="Package\DFT_Carga_FACTVentas\MontoNeto"
+          TopLeft="417,330" />
+        <EdgeLayout
+          Id="Package\DFT_Carga_FACTVentas.Paths[Derived Column Output1]"
+          TopLeft="482,295.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34.3333333333334"
+              Start="0,0"
+              End="0,26.8333333333334">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.8333333333334" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="129.333333333334,42.6666666666667"
+          Id="Package\DFT_Carga_FACTVentas\ClienteKey"
+          TopLeft="421,413" />
+        <EdgeLayout
+          Id="Package\DFT_Carga_FACTVentas.Paths[Derived Column Output2]"
+          TopLeft="484.166666666667,372.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.3333333333333"
+              Start="0,0"
+              End="0,32.8333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.8333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="138,42.6666666666667"
+          Id="Package\DFT_Carga_FACTVentas\ProductoKey"
+          TopLeft="421,487" />
+        <EdgeLayout
+          Id="Package\DFT_Carga_FACTVentas.Paths[Lookup Match Output]"
+          TopLeft="487.833333333333,455.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.3333333333333"
+              Start="0,0"
+              End="0,23.8333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.8333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,6.11197916666666,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="142.666666666667,42.6666666666667"
+          Id="Package\DFT_Carga_FACTVentas\EmpleadoKey"
+          TopLeft="420.769230769231,560" />
+        <EdgeLayout
+          Id="Package\DFT_Carga_FACTVentas.Paths[Lookup Match Output1]"
+          TopLeft="491.051282051282,529.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,30.3333333333331"
+              Start="0,0"
+              End="0,22.8333333333331">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.8333333333331" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,5.61197916666657,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="158.666666666667,42.6666666666667"
+          Id="Package\DFT_Carga_FACTVentas\TransportistaKey"
+          TopLeft="415.384615384615,634.871794871795" />
+        <EdgeLayout
+          Id="Package\DFT_Carga_FACTVentas.Paths[Lookup Match Output2]"
+          TopLeft="493.410256410256,602.666666666666">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32.2051282051284"
+              Start="0,0"
+              End="0,24.7051282051284">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.7051282051284" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,6.5478766025642,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="170.666666666667,42.6666666666667"
+          Id="Package\DFT_Carga_FACTVentas\FechaOrdenKeyAux"
+          TopLeft="408.424908424908,707.600732600733" />
+        <EdgeLayout
+          Id="Package\DFT_Carga_FACTVentas.Paths[Lookup Match Output3]"
+          TopLeft="494.238095238095,677.538461538461">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,30.0622710622711"
+              Start="0,0"
+              End="0,22.5622710622711">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.5622710622711" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,5.47644803113553,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="153.333333333334,42.6666666666667"
+          Id="Package\DFT_Carga_FACTVentas\FechaOrdenKey"
+          TopLeft="422.142857142857,783.809523809524" />
+        <EdgeLayout
+          Id="Package\DFT_Carga_FACTVentas.Paths[Derived Column Output3]"
+          TopLeft="496.283882783883,750.267399267399">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33.5421245421247"
+              Start="0,0"
+              End="0,26.0421245421247">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.0421245421247" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="168,42.6666666666667"
+          Id="Package\DFT_Carga_FACTVentas\FechaEnvioKeyAux"
+          TopLeft="411.428571428571,858.095238095238" />
+        <EdgeLayout
+          Id="Package\DFT_Carga_FACTVentas.Paths[Lookup Match Output4]"
+          TopLeft="497.119047619048,826.47619047619">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.6190476190475"
+              Start="0,0"
+              End="0,24.1190476190475">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.1190476190475" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,6.25483630952374,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="149.333333333334,42.6666666666667"
+          Id="Package\DFT_Carga_FACTVentas\FechaEnvioKey"
+          TopLeft="420,943.285714285714" />
+        <EdgeLayout
+          Id="Package\DFT_Carga_FACTVentas.Paths[Derived Column Output4]"
+          TopLeft="495.047619047619,900.761904761905">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,42.5238095238096"
+              Start="0,0"
+              End="0,35.0238095238096">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.0238095238096" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="172,42.6666666666667"
+          Id="Package\DFT_Carga_FACTVentas\OLE DB Destination"
+          TopLeft="402.857142857143,1035.47619047619" />
+        <EdgeLayout
+          Id="Package\DFT_Carga_FACTVentas.Paths[Lookup Match Output5]"
+          TopLeft="491.761904761905,985.952380952381">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,49.5238095238095"
+              Start="0,0"
+              End="0,42.0238095238095">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,42.0238095238095" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,15.2072172619048,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_Carga_FACTVentas\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_Carga_FACTVentas\ClienteKey">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimCliente]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_Carga_FACTVentas\ProductoKey">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimProducto]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_Carga_FACTVentas\EmpleadoKey">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimEmpleado]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_Carga_FACTVentas\TransportistaKey">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimTransportista]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_Carga_FACTVentas\FechaOrdenKey">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimTiempo]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_Carga_FACTVentas\FechaEnvioKey">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimTiempo]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_Carga_FACTVentas\OLE DB Destination">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
