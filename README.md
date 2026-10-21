@@ -22,7 +22,7 @@ Construir una solución de BI que permita al dueño seguir las ventas, los descu
 | Hallazgo | Dato | Consecuencia en el modelo |
 |---|---|---|
 | Período cubierto | Órdenes entre 04-07-2016 y 06-05-2018 (830 órdenes, 2.155 líneas de detalle) | `DimTiempo` se genera para 2016–2018. 2016 y 2018 son años incompletos: comparar períodos equivalentes. |
-| Órdenes sin enviar | 21 órdenes (2,5 %) con `FechaEnvio` NULL | Se usa un miembro especial `-1 "Sin fecha"` en `DimTiempo`, y `DiasDespacho` queda NULL. |
+| Órdenes sin enviar | 21 órdenes (2,5 %) con `FechaEnvio` NULL | Se usa un miembro especial `-1 "Sin fecha"` en `DimTiempo`, y `DiasDespacho` queda en 0 (estas órdenes se excluyen al promediar). |
 | Precio histórico | 658 líneas tienen un `PrecioUnitario` distinto al precio de lista actual de `Productos` | Las medidas se calculan con el precio de `DetalleOrden` (precio real cobrado), nunca con el de `Productos`. |
 | Descuentos | Entre 0 % y 25 %; almacenados como `real` (ej. 0,05 se guarda como 0,0500000007) | Se convierte a `DECIMAL(4,2)` en el ETL. |
 | País de envío | `PaisEnvio` coincide con el país del cliente en el 100 % de las órdenes; `CiudadEnvio` difiere solo en 13 órdenes de un cliente | No se crea una dimensión de destino: la geografía se analiza desde `DimCliente`. |
@@ -40,7 +40,7 @@ Construir una solución de BI que permita al dueño seguir las ventas, los descu
 
 | # | KPI | Fórmula | Para qué decisión sirve | Valor actual (referencia) |
 |---|---|---|---|---|
-| 1 | **Ventas netas** y su crecimiento | `SUM(MontoNeto)`; crecimiento = (período actual − mismo período año anterior) / mismo período año anterior | Saber si el negocio crece y en qué categorías, productos o países | $1.265.792,76 total. Ene–abr 2018 vs ene–abr 2017: +120,7 % |
+| 1 | **Ventas netas** y su crecimiento | `SUM(MontoNeto)`; crecimiento = (período actual − mismo período año anterior) / mismo período año anterior | Saber si el negocio crece y en qué categorías, productos o países | $1.265.792,53 total. Ene–abr 2018 vs ene–abr 2017: +120,7 % |
 | 2 | **Ticket promedio por orden** | `SUM(MontoNeto) / COUNT(DISTINCT OrdenID)` | Evaluar si conviene impulsar compras más grandes por orden (combos, mínimos de compra) | $1.525,05 |
 | 3 | **% de descuento otorgado** | `SUM(MontoDescuento) / SUM(MontoBruto)` | Controlar cuánto ingreso se pierde por descuentos y quién los otorga | 6,55 % |
 | 4 | **Ventas por empleado** | `SUM(MontoNeto)` por `DimEmpleado` y participación sobre el total | Medir desempeño comercial y asignar metas o incentivos | — |
@@ -89,9 +89,9 @@ Es el nivel más fino disponible. Se elige porque:
 | `MontoBruto` | `Cantidad × PrecioUnitario` | Aditiva |
 | `MontoDescuento` | `MontoBruto × Descuento` | Aditiva |
 | `MontoNeto` | `MontoBruto − MontoDescuento` | Aditiva |
-| `DiasDespacho` | `DATEDIFF(DAY, FechaOrden, FechaEnvio)`; NULL si no se ha enviado | No aditiva (solo promediar) |
+| `DiasDespacho` | `DATEDIFF(DAY, FechaOrden, FechaEnvio)`; 0 si no se ha enviado | No aditiva (solo promediar) |
 
-`DiasDespacho` se repite en todas las líneas de una orden: Un `AVG` directo sobre `FactVentas` pondera por líneas y da 8,35 días; el KPI se calcula por orden (8,49 días), lo que se resolverá en el cubo/Power BI promediando sobre órdenes distintas.
+`DiasDespacho` se repite en todas las líneas de una orden: Un `AVG` directo sobre `FactVentas` pondera por líneas e incluye las 73 líneas no enviadas (con 0), y da 8,06 días; el KPI se calcula por orden y solo sobre órdenes enviadas (`FechaEnvioKey <> -1`): 8,49 días, lo que se resolverá en el cubo/Power BI promediando sobre órdenes distintas.
 
 Los montos se **precalculan en el ETL** porque no existen en el origen y son la base de casi todos los KPI; así el cubo y Power BI solo suman.
 
@@ -147,8 +147,8 @@ El script [`database/scripts/02_validacion_carga.sql`](database/scripts/02_valid
 | Órdenes distintas (`COUNT(DISTINCT OrdenID)`) | 830 |
 | Filas con `FechaEnvioKey = -1` | 73 líneas (de 21 órdenes) |
 | `SUM(MontoBruto)` | 1.354.458,59 |
-| `SUM(MontoNeto)` | 1.265.792,76 (redondeando cada línea a 2 decimales) |
-| Ventas netas por año | 2016: 208.083,95 · 2017: 617.085,05 · 2018: 440.623,76 |
+| `SUM(MontoNeto)` | 1.265.792,53 (el ETL trunca cada monto a 2 decimales) |
+| Ventas netas por año | 2016: 208.083,93 · 2017: 617.084,91 · 2018: 440.623,69 |
 
 ---
 
@@ -169,14 +169,14 @@ El proceso ETL se implementó en SQL Server Integration Services (SSIS) dentro d
   * *Lookups*: Seis componentes *Búsqueda* (Lookup) obtienen las claves sustitutas (`...Key`) de cada dimensión. Para las fechas, se genera una columna auxiliar en formato `AAAAMMDD` para coincidir con la clave inteligente de `DimTiempo`. Las órdenes sin envío se mapean a la clave `-1` ("Sin fecha").
 
 **Validación:**
-El paquete se valida ejecutando el script `02_validacion_carga.sql`. Se confirman 2.155 filas en `FactVentas`, 830 órdenes distintas y un monto neto total de $1.265.792,76.
+El paquete se valida ejecutando el script `02_validacion_carga.sql`. Se confirman 2.155 filas en `FactVentas`, 830 órdenes distintas y un monto neto total de $1.265.792,53.
 
 ## Tecnologías utilizadas
 SQL Server, SQL Server Management Studio, Visual Studio (SSIS), GitHub.
 
 ## Estructura del repositorio
 ```
-CERTAMEN2-BI/
+Inteligencia_de_Negocios_Grupo12/
 |-- README.md
 |-- .gitignore
 |-- docs/
@@ -192,9 +192,16 @@ CERTAMEN2-BI/
 |   |   `-- 02_validacion_carga.sql           Valida la carga después del ETL
 |   `-- backup/
 |       |-- KentFoods.bak                Base transaccional entregada (origen)
-|       `-- KentFoodsDW.bak              Backup del DW con datos cargados (pendiente)
+|       `-- KentFoodsDW                  Backup del DW con datos cargados
 |-- etl/
-|   `-- proyecto-ssis/                   Proyecto Visual Studio SSIS (pendiente)
+|   `-- proyecto-ssis/
+|       `-- KentFoods_ETL/
+|           |-- KentFoods_ETL.sln        Solución de Visual Studio
+|           `-- KentFoods_ETL/
+|               |-- KentFoods_ETL.dtproj   Proyecto SSIS
+|               |-- Main.dtsx              Paquete ETL
+|               |-- KentFoods_ETL.database
+|               `-- Project.params
 |-- olap/
 |   `-- proyecto-ssas/                   Fase 2
 `-- powerbi/                             Fase 2 (dashboard.pbix)
@@ -203,9 +210,9 @@ CERTAMEN2-BI/
 ## Instrucciones de ejecución/revisión
 1. Restaurar `database/backup/KentFoods.bak` en SQL Server con el nombre **KentFoods**.
 2. Ejecutar `database/scripts/01_crear_modelo_dimensional.sql` en SSMS. Crea la base **KentFoodsDW** con sus tablas, claves y relaciones, y carga `DimTiempo`.
-3. Abrir el proyecto de `etl/proyecto-ssis/` en Visual Studio y ejecutar el paquete (carga dimensiones y luego `FactVentas`).
+3. Abrir `etl/proyecto-ssis/KentFoods_ETL/KentFoods_ETL.sln` en Visual Studio y ejecutar el paquete `Main.dtsx` (carga dimensiones, luego `FactVentas` y al final ejecuta la tarea `SQL_Validacion_Carga`).
 4. Ejecutar `database/scripts/02_validacion_carga.sql` y verificar que todas las filas digan **OK**.
-5. Alternativa para revisión rápida: restaurar `database/backup/KentFoodsDW.bak`, que ya contiene los datos cargados.
+5. Alternativa para revisión rápida: restaurar `database/backup/KentFoodsDW`, que ya contiene los datos cargados.
 
 ## Avances por fase
 | Fase | Estado |
@@ -223,4 +230,4 @@ CERTAMEN2-BI/
 | Integrante | Responsabilidades | Entregables |
 |---|---|---|
 | Maximiliano Bono | Análisis de la base transaccional, definición de KPI, aplicación de los 4 pasos de Kimball, diseño e implementación del modelo dimensional, script de validación, informe (secciones de modelo dimensional) y presentación (sección de KPI y modelo) | `database/scripts/01_crear_modelo_dimensional.sql`, `database/scripts/02_validacion_carga.sql`, `docs/modelo-dimensional/`, estructura del repositorio y README |
-| Cristian Salinas | Proceso ETL en SSIS (carga de dimensiones y de `FactVentas`), ejecución de la validación de la carga, generación del backup del DW, informe (sección ETL) y presentación (sección ETL y demostración) | `etl/proyecto-ssis/`, `database/backup/KentFoodsDW.bak`, actualización del README con el ETL |
+| Cristian Salinas | Proceso ETL en SSIS (carga de dimensiones y de `FactVentas`), ejecución de la validación de la carga, generación del backup del DW, informe (sección ETL) y presentación (sección ETL y demostración) | `etl/proyecto-ssis/`, `database/backup/KentFoodsDW`, actualización del README con el ETL |
