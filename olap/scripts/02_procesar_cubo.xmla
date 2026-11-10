@@ -1,0 +1,11 @@
+<!--
+  Kent Foods - Fase 2: procesa la base OLAP completa (dimensiones y cubo).
+  Ejecutar en SSMS conectado a ANALYSIS SERVICES, después de 01_crear_cubo_KentFoods.xmla.
+  Volver a ejecutarlo cada vez que el ETL recargue KentFoodsDW.
+-->
+<Process xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <Type>ProcessFull</Type>
+  <Object>
+    <DatabaseID>KentFoods_OLAP</DatabaseID>
+  </Object>
+</Process>
