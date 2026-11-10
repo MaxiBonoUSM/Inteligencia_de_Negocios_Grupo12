@@ -1,0 +1,60 @@
+/* =====================================================================
+   Kent Foods - Fase 2: consultas MDX para validar el cubo
+   Ejecutar en SSMS conectado a Analysis Services: New Query > MDX,
+   base KentFoods_OLAP. Seleccionar UNA consulta y presionar F5.
+   Los valores esperados corresponden a los datos cargados por el ETL actual.
+   ===================================================================== */
+
+-- 1. Totales generales
+--    Esperado: Monto Neto 1.265.792,53 | Órdenes 830 | Ticket 1.525,05
+--              % Descuento 6,55 % | Días despacho 8,49 | % Pendientes 2,53 %
+SELECT { [Measures].[Monto Neto], [Measures].[Órdenes], [Measures].[Ticket Promedio],
+         [Measures].[% Descuento], [Measures].[Días Promedio Despacho],
+         [Measures].[% Órdenes Pendientes] } ON COLUMNS
+FROM [KentFoods];
+
+-- 2. KPI 1: ventas netas por año y crecimiento
+--    Esperado: 2016 = 208.083,93 | 2017 = 617.084,91 | 2018 = 440.623,69
+--    (2016 y 2018 son años incompletos: comparar meses equivalentes)
+SELECT { [Measures].[Monto Neto], [Measures].[Ventas Año Anterior],
+         [Measures].[% Crecimiento Ventas] } ON COLUMNS,
+       [Fecha Orden].[Calendario].[Año].MEMBERS ON ROWS
+FROM [KentFoods];
+
+-- 3. KPI 1: enero a abril de cada año (períodos comparables)
+--    Cada mes de 2018 muestra su crecimiento contra el mismo mes de 2017
+SELECT { [Measures].[Monto Neto], [Measures].[% Crecimiento Ventas] } ON COLUMNS,
+       { [Fecha Orden].[Calendario].[Mes].&[2017]&[1] : [Fecha Orden].[Calendario].[Mes].&[2017]&[4],
+         [Fecha Orden].[Calendario].[Mes].&[2018]&[1] : [Fecha Orden].[Calendario].[Mes].&[2018]&[4] } ON ROWS
+FROM [KentFoods];
+
+-- 4. KPI 4: ventas y participación por empleado
+--    Esperado: Margaret Peacock primera con 18,4 %
+SELECT { [Measures].[Monto Neto], [Measures].[% Participación Ventas] } ON COLUMNS,
+       ORDER([Empleado].[Empleado].[Empleado].MEMBERS, [Measures].[Monto Neto], BDESC) ON ROWS
+FROM [KentFoods];
+
+-- 5. KPI 3: % de descuento por categoría
+SELECT { [Measures].[Monto Bruto], [Measures].[Monto Descuento], [Measures].[% Descuento] } ON COLUMNS,
+       [Producto].[Categorías].[Categoría].MEMBERS ON ROWS
+FROM [KentFoods];
+
+-- 6. KPI 5 y 6: despacho por transportista
+--    Esperado: Federal Shipping 7,47 | Speedy Express 8,57 | United Package 9,23 días
+SELECT { [Measures].[Órdenes], [Measures].[Días Promedio Despacho],
+         [Measures].[Órdenes Pendientes], [Measures].[% Órdenes Pendientes] } ON COLUMNS,
+       [Transportista].[Transportista].[Transportista].MEMBERS ON ROWS
+FROM [KentFoods];
+
+-- 7. KPI 2: ticket promedio por país del cliente
+SELECT { [Measures].[Monto Neto], [Measures].[Órdenes], [Measures].[Ticket Promedio] } ON COLUMNS,
+       ORDER([Cliente].[Geografía].[País].MEMBERS, [Measures].[Monto Neto], BDESC) ON ROWS
+FROM [KentFoods];
+
+-- 8. Objetos KPI del cubo: Tiempo de Despacho y Tasa de Pendientes
+--    (los nombres de objetos KPI no admiten %, por eso se llaman "Tasa de ...")
+-- KPI del cubo (valor, meta y estado: 1 = cumple, 0 = alerta, -1 = no cumple)
+SELECT { KPIValue("Tiempo de Despacho"), KPIGoal("Tiempo de Despacho"), KPIStatus("Tiempo de Despacho"),
+         KPIValue("Tasa de Pendientes"), KPIGoal("Tasa de Pendientes"), KPIStatus("Tasa de Pendientes") } ON COLUMNS,
+       [Transportista].[Transportista].[Transportista].MEMBERS ON ROWS
+FROM [KentFoods];
