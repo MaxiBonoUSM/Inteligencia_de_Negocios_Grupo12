@@ -1,0 +1,288 @@
+﻿<DataSourceView xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>KentFoodsDW</ID>
+  <Name>KentFoodsDW</Name>
+  <CreatedTimestamp>2026-11-10T01:13:53.936667Z</CreatedTimestamp>
+  <LastSchemaUpdate>2026-11-10T01:13:53.936667Z</LastSchemaUpdate>
+  <DataSourceID>KentFoodsDW</DataSourceID>
+  <Schema>
+    <xs:schema id="KentFoodsDW" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+      <xs:element name="KentFoodsDW" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+        <xs:complexType>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="dbo_FactVentas" msprop:DbTableName="FactVentas" msprop:FriendlyName="FactVentas" msprop:DbSchemaName="dbo" msprop:TableType="Table">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="OrdenID" msprop:DbColumnName="OrdenID" msprop:FriendlyName="OrdenID" type="xs:int" />
+                  <xs:element name="ProductoKey" msprop:DbColumnName="ProductoKey" msprop:FriendlyName="ProductoKey" type="xs:int" />
+                  <xs:element name="ClienteKey" msprop:DbColumnName="ClienteKey" msprop:FriendlyName="ClienteKey" type="xs:int" />
+                  <xs:element name="EmpleadoKey" msprop:DbColumnName="EmpleadoKey" msprop:FriendlyName="EmpleadoKey" type="xs:int" />
+                  <xs:element name="TransportistaKey" msprop:DbColumnName="TransportistaKey" msprop:FriendlyName="TransportistaKey" type="xs:int" />
+                  <xs:element name="FechaOrdenKey" msprop:DbColumnName="FechaOrdenKey" msprop:FriendlyName="FechaOrdenKey" type="xs:int" />
+                  <xs:element name="FechaEnvioKey" msprop:DbColumnName="FechaEnvioKey" msprop:FriendlyName="FechaEnvioKey" type="xs:int" />
+                  <xs:element name="Cantidad" msprop:DbColumnName="Cantidad" msprop:FriendlyName="Cantidad" type="xs:short" />
+                  <xs:element name="PrecioUnitario" msprop:DbColumnName="PrecioUnitario" msprop:FriendlyName="PrecioUnitario" type="xs:decimal" />
+                  <xs:element name="Descuento" msprop:DbColumnName="Descuento" msprop:FriendlyName="Descuento" type="xs:decimal" />
+                  <xs:element name="MontoBruto" msprop:DbColumnName="MontoBruto" msprop:FriendlyName="MontoBruto" type="xs:decimal" />
+                  <xs:element name="MontoDescuento" msprop:DbColumnName="MontoDescuento" msprop:FriendlyName="MontoDescuento" type="xs:decimal" />
+                  <xs:element name="MontoNeto" msprop:DbColumnName="MontoNeto" msprop:FriendlyName="MontoNeto" type="xs:decimal" />
+                  <xs:element name="DiasDespacho" msprop:DbColumnName="DiasDespacho" msprop:FriendlyName="DiasDespacho" type="xs:short" minOccurs="0" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="dbo_vFactOrdenes" msprop:DbTableName="vFactOrdenes" msprop:FriendlyName="vFactOrdenes" msprop:DbSchemaName="dbo" msprop:TableType="View">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="OrdenID" msprop:DbColumnName="OrdenID" msprop:FriendlyName="OrdenID" type="xs:int" />
+                  <xs:element name="ClienteKey" msprop:DbColumnName="ClienteKey" msprop:FriendlyName="ClienteKey" type="xs:int" minOccurs="0" />
+                  <xs:element name="EmpleadoKey" msprop:DbColumnName="EmpleadoKey" msprop:FriendlyName="EmpleadoKey" type="xs:int" minOccurs="0" />
+                  <xs:element name="TransportistaKey" msprop:DbColumnName="TransportistaKey" msprop:FriendlyName="TransportistaKey" type="xs:int" minOccurs="0" />
+                  <xs:element name="FechaOrdenKey" msprop:DbColumnName="FechaOrdenKey" msprop:FriendlyName="FechaOrdenKey" type="xs:int" minOccurs="0" />
+                  <xs:element name="FechaEnvioKey" msprop:DbColumnName="FechaEnvioKey" msprop:FriendlyName="FechaEnvioKey" type="xs:int" minOccurs="0" />
+                  <xs:element name="DiasDespacho" msprop:DbColumnName="DiasDespacho" msprop:FriendlyName="DiasDespacho" type="xs:int" minOccurs="0" />
+                  <xs:element name="Enviada" msprop:DbColumnName="Enviada" msprop:FriendlyName="Enviada" type="xs:int" minOccurs="0" />
+                  <xs:element name="Pendiente" msprop:DbColumnName="Pendiente" msprop:FriendlyName="Pendiente" type="xs:int" minOccurs="0" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="dbo_DimCliente" msprop:DbTableName="DimCliente" msprop:FriendlyName="DimCliente" msprop:DbSchemaName="dbo" msprop:TableType="Table">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="ClienteKey" msprop:DbColumnName="ClienteKey" msprop:FriendlyName="ClienteKey" type="xs:int" />
+                  <xs:element name="ClienteID" msprop:DbColumnName="ClienteID" msprop:FriendlyName="ClienteID">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="5" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Empresa" msprop:DbColumnName="Empresa" msprop:FriendlyName="Empresa">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="40" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Contacto" msprop:DbColumnName="Contacto" msprop:FriendlyName="Contacto">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="30" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Ciudad" msprop:DbColumnName="Ciudad" msprop:FriendlyName="Ciudad">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="15" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Pais" msprop:DbColumnName="Pais" msprop:FriendlyName="Pais">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="15" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="dbo_DimProducto" msprop:DbTableName="DimProducto" msprop:FriendlyName="DimProducto" msprop:DbSchemaName="dbo" msprop:TableType="Table">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="ProductoKey" msprop:DbColumnName="ProductoKey" msprop:FriendlyName="ProductoKey" type="xs:int" />
+                  <xs:element name="ProductoID" msprop:DbColumnName="ProductoID" msprop:FriendlyName="ProductoID" type="xs:int" />
+                  <xs:element name="Producto" msprop:DbColumnName="Producto" msprop:FriendlyName="Producto">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="40" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="CantidadPorUnidad" msprop:DbColumnName="CantidadPorUnidad" msprop:FriendlyName="CantidadPorUnidad">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="20" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Categoria" msprop:DbColumnName="Categoria" msprop:FriendlyName="Categoria">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="15" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Proveedor" msprop:DbColumnName="Proveedor" msprop:FriendlyName="Proveedor">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="40" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="PaisProveedor" msprop:DbColumnName="PaisProveedor" msprop:FriendlyName="PaisProveedor">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="15" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="dbo_DimEmpleado" msprop:DbTableName="DimEmpleado" msprop:FriendlyName="DimEmpleado" msprop:DbSchemaName="dbo" msprop:TableType="Table">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="EmpleadoKey" msprop:DbColumnName="EmpleadoKey" msprop:FriendlyName="EmpleadoKey" type="xs:int" />
+                  <xs:element name="EmpleadoID" msprop:DbColumnName="EmpleadoID" msprop:FriendlyName="EmpleadoID" type="xs:int" />
+                  <xs:element name="NombreCompleto" msprop:DbColumnName="NombreCompleto" msprop:FriendlyName="NombreCompleto">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="35" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Cargo" msprop:DbColumnName="Cargo" msprop:FriendlyName="Cargo">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="30" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Ciudad" msprop:DbColumnName="Ciudad" msprop:FriendlyName="Ciudad">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="15" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Pais" msprop:DbColumnName="Pais" msprop:FriendlyName="Pais">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="15" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="dbo_DimTransportista" msprop:DbTableName="DimTransportista" msprop:FriendlyName="DimTransportista" msprop:DbSchemaName="dbo" msprop:TableType="Table">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="TransportistaKey" msprop:DbColumnName="TransportistaKey" msprop:FriendlyName="TransportistaKey" type="xs:int" />
+                  <xs:element name="TransportistaID" msprop:DbColumnName="TransportistaID" msprop:FriendlyName="TransportistaID" type="xs:int" />
+                  <xs:element name="Transportista" msprop:DbColumnName="Transportista" msprop:FriendlyName="Transportista">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="40" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="dbo_vDimTiempo" msprop:DbTableName="vDimTiempo" msprop:FriendlyName="vDimTiempo" msprop:DbSchemaName="dbo" msprop:TableType="View">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="TiempoKey" msprop:DbColumnName="TiempoKey" msprop:FriendlyName="TiempoKey" type="xs:int" />
+                  <xs:element name="Fecha" msprop:DbColumnName="Fecha" msprop:FriendlyName="Fecha" type="xs:dateTime" minOccurs="0" />
+                  <xs:element name="FechaNombre" msprop:DbColumnName="FechaNombre" msprop:FriendlyName="FechaNombre">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="20" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Anio" msprop:DbColumnName="Anio" msprop:FriendlyName="Anio" type="xs:short" />
+                  <xs:element name="AnioNombre" msprop:DbColumnName="AnioNombre" msprop:FriendlyName="AnioNombre">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="20" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Semestre" msprop:DbColumnName="Semestre" msprop:FriendlyName="Semestre" type="xs:unsignedByte" />
+                  <xs:element name="SemestreNombre" msprop:DbColumnName="SemestreNombre" msprop:FriendlyName="SemestreNombre">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="20" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Trimestre" msprop:DbColumnName="Trimestre" msprop:FriendlyName="Trimestre" type="xs:unsignedByte" />
+                  <xs:element name="TrimestreNombre" msprop:DbColumnName="TrimestreNombre" msprop:FriendlyName="TrimestreNombre">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="20" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Mes" msprop:DbColumnName="Mes" msprop:FriendlyName="Mes" type="xs:unsignedByte" />
+                  <xs:element name="MesNombre" msprop:DbColumnName="MesNombre" msprop:FriendlyName="MesNombre">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="30" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="DiaSemana" msprop:DbColumnName="DiaSemana" msprop:FriendlyName="DiaSemana" type="xs:unsignedByte" />
+                  <xs:element name="NombreDiaSemana" msprop:DbColumnName="NombreDiaSemana" msprop:FriendlyName="NombreDiaSemana">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="15" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:choice>
+        </xs:complexType>
+        <xs:unique name="PK_dbo_FactVentas" msdata:PrimaryKey="true">
+          <xs:selector xpath=".//dbo_FactVentas" />
+          <xs:field xpath="OrdenID" />
+          <xs:field xpath="ProductoKey" />
+        </xs:unique>
+        <xs:unique name="PK_dbo_vFactOrdenes" msdata:PrimaryKey="true">
+          <xs:selector xpath=".//dbo_vFactOrdenes" />
+          <xs:field xpath="OrdenID" />
+        </xs:unique>
+        <xs:unique name="PK_dbo_DimCliente" msdata:PrimaryKey="true">
+          <xs:selector xpath=".//dbo_DimCliente" />
+          <xs:field xpath="ClienteKey" />
+        </xs:unique>
+        <xs:unique name="PK_dbo_DimProducto" msdata:PrimaryKey="true">
+          <xs:selector xpath=".//dbo_DimProducto" />
+          <xs:field xpath="ProductoKey" />
+        </xs:unique>
+        <xs:unique name="PK_dbo_DimEmpleado" msdata:PrimaryKey="true">
+          <xs:selector xpath=".//dbo_DimEmpleado" />
+          <xs:field xpath="EmpleadoKey" />
+        </xs:unique>
+        <xs:unique name="PK_dbo_DimTransportista" msdata:PrimaryKey="true">
+          <xs:selector xpath=".//dbo_DimTransportista" />
+          <xs:field xpath="TransportistaKey" />
+        </xs:unique>
+        <xs:unique name="PK_dbo_vDimTiempo" msdata:PrimaryKey="true">
+          <xs:selector xpath=".//dbo_vDimTiempo" />
+          <xs:field xpath="TiempoKey" />
+        </xs:unique>
+      </xs:element>
+      <xs:annotation>
+        <xs:appinfo>
+          <msdata:Relationship name="FK_Ventas_Cliente" msdata:parent="dbo_DimCliente" msdata:child="dbo_FactVentas" msdata:parentkey="ClienteKey" msdata:childkey="ClienteKey" />
+          <msdata:Relationship name="FK_Ventas_Producto" msdata:parent="dbo_DimProducto" msdata:child="dbo_FactVentas" msdata:parentkey="ProductoKey" msdata:childkey="ProductoKey" />
+          <msdata:Relationship name="FK_Ventas_Empleado" msdata:parent="dbo_DimEmpleado" msdata:child="dbo_FactVentas" msdata:parentkey="EmpleadoKey" msdata:childkey="EmpleadoKey" />
+          <msdata:Relationship name="FK_Ventas_Transportista" msdata:parent="dbo_DimTransportista" msdata:child="dbo_FactVentas" msdata:parentkey="TransportistaKey" msdata:childkey="TransportistaKey" />
+          <msdata:Relationship name="FK_Ventas_FechaOrden" msdata:parent="dbo_vDimTiempo" msdata:child="dbo_FactVentas" msdata:parentkey="TiempoKey" msdata:childkey="FechaOrdenKey" />
+          <msdata:Relationship name="FK_Ventas_FechaEnvio" msdata:parent="dbo_vDimTiempo" msdata:child="dbo_FactVentas" msdata:parentkey="TiempoKey" msdata:childkey="FechaEnvioKey" />
+          <msdata:Relationship name="FK_Ordenes_Cliente" msdata:parent="dbo_DimCliente" msdata:child="dbo_vFactOrdenes" msdata:parentkey="ClienteKey" msdata:childkey="ClienteKey" />
+          <msdata:Relationship name="FK_Ordenes_Empleado" msdata:parent="dbo_DimEmpleado" msdata:child="dbo_vFactOrdenes" msdata:parentkey="EmpleadoKey" msdata:childkey="EmpleadoKey" />
+          <msdata:Relationship name="FK_Ordenes_Transportista" msdata:parent="dbo_DimTransportista" msdata:child="dbo_vFactOrdenes" msdata:parentkey="TransportistaKey" msdata:childkey="TransportistaKey" />
+          <msdata:Relationship name="FK_Ordenes_FechaOrden" msdata:parent="dbo_vDimTiempo" msdata:child="dbo_vFactOrdenes" msdata:parentkey="TiempoKey" msdata:childkey="FechaOrdenKey" />
+          <msdata:Relationship name="FK_Ordenes_FechaEnvio" msdata:parent="dbo_vDimTiempo" msdata:child="dbo_vFactOrdenes" msdata:parentkey="TiempoKey" msdata:childkey="FechaEnvioKey" />
+        </xs:appinfo>
+      </xs:annotation>
+    </xs:schema>
+    <KentFoodsDW xmlns="" />
+  </Schema>
+</DataSourceView>
