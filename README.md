@@ -346,7 +346,7 @@ Inteligencia_de_Negocios_Grupo12/
 | Fase 2 – Proyecto SSAS en Visual Studio | Listo |
 | Fase 2 – Dashboard en Power BI | Listo |
 | Fase 2 – Presentación | Listo |
-| Fase 2 – Informe (sección Cubos OLAP) | En progreso |
+| Fase 2 – Informe (sección Cubos OLAP) | Listo |
 
 ## Distribución de responsabilidades y aportes
 
