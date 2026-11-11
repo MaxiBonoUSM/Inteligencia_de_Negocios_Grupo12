@@ -11,8 +11,8 @@
   DTS:LocaleID="13322"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="17"
-  DTS:VersionGUID="{055851B0-F1BC-4602-A44A-01C1E78FC008}">
+  DTS:VersionBuild="18"
+  DTS:VersionGUID="{6E7E9BB4-7F72-4239-8C38-8E8E67C6CD76}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -3917,6 +3917,10 @@ where [refTable].[TransportistaID] = ?</property>
           Size="170.666666666667,42.6666666666667"
           Id="Package\SQL_Delete_Tablas"
           TopLeft="368.333327844739,1.29999997675385" />
+        <NodeLayout
+          Size="185.333333333334,42.6666666666667"
+          Id="Package\SQL_Validacion_Carga"
+          TopLeft="359.208331219231,455.016666910748" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="437.399994511406,43.9666666434205">
@@ -4189,24 +4193,20 @@ where [refTable].[TransportistaID] = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="185.333333333334,42.6666666666667"
-          Id="Package\SQL_Validacion_Carga"
-          TopLeft="359.208331219231,455.016666910748" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 8]"
           TopLeft="448.562496350768,375.249994052947">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,79.7666728578009"
+              EndConnector="0,79.7666728578013"
               Start="0,0"
-              End="0,72.2666728578009">
+              End="0,72.2666728578013">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,72.2666728578009" />
+                    End="0,72.2666728578013" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -4222,7 +4222,7 @@ where [refTable].[TransportistaID] = ?</property>
     design-time-name="Package\DFT_Carga_DimCliente">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="150.666666666667,42.6666666666667"
           Id="Package\DFT_Carga_DimCliente\OLE DB Source"
@@ -4250,9 +4250,7 @@ where [refTable].[TransportistaID] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -4288,7 +4286,7 @@ where [refTable].[TransportistaID] = ?</property>
     design-time-name="Package\DFT_Carga_DimEmpleado">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="172,42.6666666666667"
           Id="Package\DFT_Carga_DimEmpleado\OLE DB Destination"
@@ -4296,7 +4294,7 @@ where [refTable].[TransportistaID] = ?</property>
         <NodeLayout
           Size="154.666666666667,42.6666666666667"
           Id="Package\DFT_Carga_DimEmpleado\Derived Column"
-          TopLeft="390,100" />
+          TopLeft="380,120" />
         <NodeLayout
           Size="150.666666666667,42.6666666666667"
           Id="Package\DFT_Carga_DimEmpleado\OLE DB Source"
@@ -4307,70 +4305,66 @@ where [refTable].[TransportistaID] = ?</property>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="19,25.3333333333334"
+              EndConnector="9.00000000000006,45.3333333333334"
               Start="0,0"
-              End="19,17.8333333333334">
+              End="9.00000000000006,37.8333333333334">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,8.66666666666668" />
+                    End="0,18.6666666666667" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,8.66666666666668"
-                    Point2="0,12.6666666666667"
-                    Point3="4,12.6666666666667" />
+                    Point1="0,18.6666666666667"
+                    Point2="0,22.6666666666667"
+                    Point3="4,22.6666666666667" />
                   <mssgle:LineSegment
-                    End="15,12.6666666666667" />
+                    End="5.00000000000006,22.6666666666667" />
                   <mssgle:CubicBezierSegment
-                    Point1="15,12.6666666666667"
-                    Point2="19,12.6666666666667"
-                    Point3="19,16.6666666666667" />
+                    Point1="5.00000000000006,22.6666666666667"
+                    Point2="9.00000000000006,22.6666666666667"
+                    Point3="9.00000000000006,26.6666666666667" />
                   <mssgle:LineSegment
-                    End="19,17.8333333333334" />
+                    End="9.00000000000006,37.8333333333334" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\DFT_Carga_DimEmpleado.Paths[Derived Column Output]"
-          TopLeft="467.333333333333,142.666666666667">
+          TopLeft="457.333333333333,162.666666666667">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-21.3333333333334,77.3333333333333"
+              EndConnector="-11.3333333333334,57.3333333333333"
               Start="0,0"
-              End="-21.3333333333334,69.8333333333333">
+              End="-11.3333333333334,49.8333333333333">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,34.6666666666666" />
+                    End="0,24.6666666666667" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,34.6666666666666"
-                    Point2="0,38.6666666666666"
-                    Point3="-4,38.6666666666666" />
+                    Point1="0,24.6666666666667"
+                    Point2="0,28.6666666666667"
+                    Point3="-4,28.6666666666667" />
                   <mssgle:LineSegment
-                    End="-17.3333333333334,38.6666666666666" />
+                    End="-7.33333333333337,28.6666666666667" />
                   <mssgle:CubicBezierSegment
-                    Point1="-17.3333333333334,38.6666666666666"
-                    Point2="-21.3333333333334,38.6666666666666"
-                    Point3="-21.3333333333334,42.6666666666666" />
+                    Point1="-7.33333333333337,28.6666666666667"
+                    Point2="-11.3333333333334,28.6666666666667"
+                    Point3="-11.3333333333334,32.6666666666667" />
                   <mssgle:LineSegment
-                    End="-21.3333333333334,69.8333333333333" />
+                    End="-11.3333333333334,49.8333333333333" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -4545,13 +4539,57 @@ where [refTable].[TransportistaID] = ?</property>
       <GraphLayout
         Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
+          Size="138,42.6666666666667"
+          Id="Package\DFT_Carga_FACTVentas\ProductoKey"
+          TopLeft="421,487" />
+        <NodeLayout
+          Size="158.666666666667,42.6666666666667"
+          Id="Package\DFT_Carga_FACTVentas\MontoDescuento"
+          TopLeft="402,253" />
+        <NodeLayout
           Size="150.666666666667,42.6666666666667"
           Id="Package\DFT_Carga_FACTVentas\OLE DB Source"
           TopLeft="401,71" />
         <NodeLayout
+          Size="142.666666666667,42.6666666666667"
+          Id="Package\DFT_Carga_FACTVentas\EmpleadoKey"
+          TopLeft="420.769230769231,560" />
+        <NodeLayout
+          Size="158.666666666667,42.6666666666667"
+          Id="Package\DFT_Carga_FACTVentas\TransportistaKey"
+          TopLeft="415.384615384615,634.871794871795" />
+        <NodeLayout
+          Size="149.333333333334,42.6666666666667"
+          Id="Package\DFT_Carga_FACTVentas\FechaEnvioKey"
+          TopLeft="420,943.285714285714" />
+        <NodeLayout
+          Size="153.333333333334,42.6666666666667"
+          Id="Package\DFT_Carga_FACTVentas\FechaOrdenKey"
+          TopLeft="422.142857142857,783.809523809524" />
+        <NodeLayout
+          Size="172,42.6666666666667"
+          Id="Package\DFT_Carga_FACTVentas\OLE DB Destination"
+          TopLeft="402.857142857143,1035.47619047619" />
+        <NodeLayout
           Size="206.666666666667,42.6666666666667"
           Id="Package\DFT_Carga_FACTVentas\MontoBruto, DiasDespacho"
           TopLeft="380,175" />
+        <NodeLayout
+          Size="131.333333333334,42.6666666666667"
+          Id="Package\DFT_Carga_FACTVentas\MontoNeto"
+          TopLeft="417,330" />
+        <NodeLayout
+          Size="168,42.6666666666667"
+          Id="Package\DFT_Carga_FACTVentas\FechaEnvioKeyAux"
+          TopLeft="411.428571428571,858.095238095238" />
+        <NodeLayout
+          Size="129.333333333334,42.6666666666667"
+          Id="Package\DFT_Carga_FACTVentas\ClienteKey"
+          TopLeft="421,413" />
+        <NodeLayout
+          Size="170.666666666667,42.6666666666667"
+          Id="Package\DFT_Carga_FACTVentas\FechaOrdenKeyAux"
+          TopLeft="408.424908424908,707.600732600733" />
         <EdgeLayout
           Id="Package\DFT_Carga_FACTVentas.Paths[OLE DB Source Output]"
           TopLeft="479.833333333333,113.666666666667">
@@ -4574,226 +4612,30 @@ where [refTable].[TransportistaID] = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="158.666666666667,42.6666666666667"
-          Id="Package\DFT_Carga_FACTVentas\MontoDescuento"
-          TopLeft="402,253" />
         <EdgeLayout
-          Id="Package\DFT_Carga_FACTVentas.Paths[Derived Column Output]"
-          TopLeft="482.333333333333,217.666666666667">
+          Id="Package\DFT_Carga_FACTVentas.Paths[Lookup Match Output5]"
+          TopLeft="491.761904761905,985.952380952381">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,35.3333333333333"
+              EndConnector="0,49.5238095238095"
               Start="0,0"
-              End="0,27.8333333333333">
+              End="0,42.0238095238095">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,27.8333333333333" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="131.333333333334,42.6666666666667"
-          Id="Package\DFT_Carga_FACTVentas\MontoNeto"
-          TopLeft="417,330" />
-        <EdgeLayout
-          Id="Package\DFT_Carga_FACTVentas.Paths[Derived Column Output1]"
-          TopLeft="482,295.666666666667">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,34.3333333333334"
-              Start="0,0"
-              End="0,26.8333333333334">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,26.8333333333334" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="129.333333333334,42.6666666666667"
-          Id="Package\DFT_Carga_FACTVentas\ClienteKey"
-          TopLeft="421,413" />
-        <EdgeLayout
-          Id="Package\DFT_Carga_FACTVentas.Paths[Derived Column Output2]"
-          TopLeft="484.166666666667,372.666666666667">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,40.3333333333333"
-              Start="0,0"
-              End="0,32.8333333333333">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,32.8333333333333" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="138,42.6666666666667"
-          Id="Package\DFT_Carga_FACTVentas\ProductoKey"
-          TopLeft="421,487" />
-        <EdgeLayout
-          Id="Package\DFT_Carga_FACTVentas.Paths[Lookup Match Output]"
-          TopLeft="487.833333333333,455.666666666667">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,31.3333333333333"
-              Start="0,0"
-              End="0,23.8333333333333">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,23.8333333333333" />
+                    End="0,42.0238095238095" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-48.19138671875,6.11197916666666,96.3827734375,11.609375"
+              BoundingBox="-48.19138671875,15.2072172619048,96.3827734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="142.666666666667,42.6666666666667"
-          Id="Package\DFT_Carga_FACTVentas\EmpleadoKey"
-          TopLeft="420.769230769231,560" />
-        <EdgeLayout
-          Id="Package\DFT_Carga_FACTVentas.Paths[Lookup Match Output1]"
-          TopLeft="491.051282051282,529.666666666667">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,30.3333333333331"
-              Start="0,0"
-              End="0,22.8333333333331">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,22.8333333333331" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-48.19138671875,5.61197916666657,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="158.666666666667,42.6666666666667"
-          Id="Package\DFT_Carga_FACTVentas\TransportistaKey"
-          TopLeft="415.384615384615,634.871794871795" />
-        <EdgeLayout
-          Id="Package\DFT_Carga_FACTVentas.Paths[Lookup Match Output2]"
-          TopLeft="493.410256410256,602.666666666666">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,32.2051282051284"
-              Start="0,0"
-              End="0,24.7051282051284">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,24.7051282051284" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-48.19138671875,6.5478766025642,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="170.666666666667,42.6666666666667"
-          Id="Package\DFT_Carga_FACTVentas\FechaOrdenKeyAux"
-          TopLeft="408.424908424908,707.600732600733" />
-        <EdgeLayout
-          Id="Package\DFT_Carga_FACTVentas.Paths[Lookup Match Output3]"
-          TopLeft="494.238095238095,677.538461538461">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,30.0622710622711"
-              Start="0,0"
-              End="0,22.5622710622711">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,22.5622710622711" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-48.19138671875,5.47644803113553,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="153.333333333334,42.6666666666667"
-          Id="Package\DFT_Carga_FACTVentas\FechaOrdenKey"
-          TopLeft="422.142857142857,783.809523809524" />
-        <EdgeLayout
-          Id="Package\DFT_Carga_FACTVentas.Paths[Derived Column Output3]"
-          TopLeft="496.283882783883,750.267399267399">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,33.5421245421247"
-              Start="0,0"
-              End="0,26.0421245421247">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,26.0421245421247" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="168,42.6666666666667"
-          Id="Package\DFT_Carga_FACTVentas\FechaEnvioKeyAux"
-          TopLeft="411.428571428571,858.095238095238" />
         <EdgeLayout
           Id="Package\DFT_Carga_FACTVentas.Paths[Lookup Match Output4]"
           TopLeft="497.119047619048,826.47619047619">
@@ -4818,10 +4660,102 @@ where [refTable].[TransportistaID] = ?</property>
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="149.333333333334,42.6666666666667"
-          Id="Package\DFT_Carga_FACTVentas\FechaEnvioKey"
-          TopLeft="420,943.285714285714" />
+        <EdgeLayout
+          Id="Package\DFT_Carga_FACTVentas.Paths[Lookup Match Output3]"
+          TopLeft="494.238095238095,677.538461538461">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,30.0622710622711"
+              Start="0,0"
+              End="0,22.5622710622711">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.5622710622711" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,5.47644803113553,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT_Carga_FACTVentas.Paths[Lookup Match Output2]"
+          TopLeft="493.410256410256,602.666666666666">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32.2051282051284"
+              Start="0,0"
+              End="0,24.7051282051284">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.7051282051284" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,6.5478766025642,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT_Carga_FACTVentas.Paths[Lookup Match Output1]"
+          TopLeft="491.051282051282,529.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,30.3333333333331"
+              Start="0,0"
+              End="0,22.8333333333331">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.8333333333331" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,5.61197916666657,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT_Carga_FACTVentas.Paths[Lookup Match Output]"
+          TopLeft="487.833333333333,455.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.3333333333333"
+              Start="0,0"
+              End="0,23.8333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.8333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,6.11197916666666,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package\DFT_Carga_FACTVentas.Paths[Derived Column Output4]"
           TopLeft="495.047619047619,900.761904761905">
@@ -4844,32 +4778,92 @@ where [refTable].[TransportistaID] = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="172,42.6666666666667"
-          Id="Package\DFT_Carga_FACTVentas\OLE DB Destination"
-          TopLeft="402.857142857143,1035.47619047619" />
         <EdgeLayout
-          Id="Package\DFT_Carga_FACTVentas.Paths[Lookup Match Output5]"
-          TopLeft="491.761904761905,985.952380952381">
+          Id="Package\DFT_Carga_FACTVentas.Paths[Derived Column Output3]"
+          TopLeft="496.283882783883,750.267399267399">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,49.5238095238095"
+              EndConnector="0,33.5421245421247"
               Start="0,0"
-              End="0,42.0238095238095">
+              End="0,26.0421245421247">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,42.0238095238095" />
+                    End="0,26.0421245421247" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-48.19138671875,15.2072172619048,96.3827734375,11.609375"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT_Carga_FACTVentas.Paths[Derived Column Output2]"
+          TopLeft="484.166666666667,372.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.3333333333333"
+              Start="0,0"
+              End="0,32.8333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.8333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT_Carga_FACTVentas.Paths[Derived Column Output1]"
+          TopLeft="482,295.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34.3333333333334"
+              Start="0,0"
+              End="0,26.8333333333334">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.8333333333334" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT_Carga_FACTVentas.Paths[Derived Column Output]"
+          TopLeft="482.333333333333,217.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,35.3333333333333"
+              Start="0,0"
+              End="0,27.8333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.8333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
