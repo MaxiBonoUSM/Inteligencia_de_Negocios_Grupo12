@@ -171,8 +171,99 @@ El proceso ETL se implementó en SQL Server Integration Services (SSIS) dentro d
 **Validación:**
 El paquete se valida ejecutando el script `02_validacion_carga.sql`. Se confirman 2.155 filas en `FactVentas`, 830 órdenes distintas y un monto neto total de $1.265.792,53.
 
+---
+
+## Revisión de la Fase 1 (inicio de la Fase 2)
+- El modelo dimensional, el ETL y los datos cargados se revisaron contra el origen: filas, órdenes, claves y fechas cuadran (2.155 filas, 830 órdenes, 0 hechos huérfanos).
+- El modelo estrella y `KentFoodsDW` se mantienen sin cambios.
+- Se agregaron dos scripts de apoyo para el cubo. Ninguno modifica tablas existentes:
+  - `03_vistas_cubo.sql`: crea las vistas `vDimTiempo` y `vFactOrdenes`.
+  - `04_permisos_ssas.sql`: da permiso de lectura sobre `KentFoodsDW` a la cuenta del servicio de Analysis Services.
+
+## Cubo OLAP - Fase 2
+Base multidimensional **KentFoods_OLAP** en SQL Server Analysis Services (modo Multidimensional), con el cubo **KentFoods**. Se crea con el script XMLA `olap/scripts/01_crear_cubo_KentFoods.xmla`, se carga con `olap/scripts/02_procesar_cubo.xmla` y está disponible como proyecto de Visual Studio en `olap/proyecto-ssas/KentFoods_OLAP/`.
+
+### Origen de datos y vista de datos
+- **Origen:** `KentFoodsDW` en `localhost`, leído con la cuenta del servicio de SSAS (`NT Service\MSSQLServerOLAPService`), que recibe permiso de solo lectura con `04_permisos_ssas.sql`.
+- **Vista de datos (DSV):** 7 objetos y 11 relaciones. Incluye `FactVentas`, las 4 dimensiones (`DimCliente`, `DimProducto`, `DimEmpleado`, `DimTransportista`) y las dos vistas de `03_vistas_cubo.sql`:
+  - `vDimTiempo`: `DimTiempo` con un nombre legible para cada nivel del calendario (`15-03-2017`, `Marzo 2017`, `T1 2017`, `S1 2017`; la fila -1 aparece como "Sin fecha").
+  - `vFactOrdenes`: una fila por orden (830), con las banderas `Enviada` y `Pendiente`. Permite contar órdenes y promediar días de despacho sin el efecto de las varias líneas por orden, y calcular el tiempo de despacho solo sobre las 809 órdenes enviadas.
+
+### Dimensiones y jerarquías
+| Dimensión | Atributos | Jerarquía |
+|---|---|---|
+| Tiempo (dos roles: **Fecha Orden** y **Fecha Envío**) | Fecha, Mes, Trimestre, Semestre, Año, Día Semana | **Calendario**: Fecha → Mes → Trimestre → Semestre → Año |
+| Cliente | Cliente, Ciudad, País | **Geografía**: Cliente → Ciudad → País |
+| Producto | Producto, Categoría, Proveedor, País Proveedor | **Categorías**: Producto → Categoría · **Proveedores**: Producto → Proveedor → País Proveedor |
+| Empleado | Empleado, Cargo, Ciudad, País | **Ubicación**: Empleado → Ciudad → País |
+| Transportista | Transportista | — |
+
+Cada flecha se lee "pertenece a" (cada fecha pertenece a un mes, cada mes a un trimestre, etc.). Al navegar el cubo, los niveles se recorren en sentido inverso, de lo general a lo particular.
+
+- Mes, Trimestre y Semestre usan clave compuesta con el año (por ejemplo, Año + Mes), para que "Marzo 2017" y "Marzo 2018" sean miembros distintos.
+- Ciudad usa clave compuesta País + Ciudad, para no mezclar ciudades con el mismo nombre en países distintos.
+- La dimensión Tiempo se usa dos veces en el cubo (dimensión de rol múltiple), igual que en el modelo estrella.
+
+### Grupos de medidas
+| Grupo | Origen (granularidad) | Medidas | Dimensiones |
+|---|---|---|---|
+| **Ventas** | `FactVentas` (línea de orden, 2.155 filas) | Monto Neto, Monto Bruto, Monto Descuento, Cantidad, Líneas de Venta | Todas |
+| **Despacho** | `vFactOrdenes` (orden, 830 filas) | Órdenes, Órdenes Enviadas, Órdenes Pendientes, Días Despacho Total (auxiliar) | Todas menos Producto (una orden puede tener varios productos) |
+
+Ambos grupos usan almacenamiento MOLAP. El grupo Despacho tiene `IgnoreUnrelatedDimensions = false`: al filtrar por producto, sus medidas quedan vacías en lugar de repetir el total de todas las órdenes.
+
+### Medidas calculadas (MDX) y KPI
+| KPI del proyecto | Medida del cubo | Cálculo | Valor |
+|---|---|---|---|
+| 1. Ventas netas y crecimiento | Monto Neto · Ventas Año Anterior · % Crecimiento Ventas | `ParallelPeriod` sobre el nivel Año de la jerarquía Calendario (mismo período del año anterior) | 1.265.792,53 |
+| 2. Ticket promedio | Ticket Promedio | Monto Neto / Órdenes | 1.525,05 |
+| 3. % de descuento | % Descuento | Monto Descuento / Monto Bruto | 6,55 % |
+| 4. Ventas por empleado | Monto Neto · % Participación Ventas | Monto Neto / Monto Neto de `Root([Empleado])` | Margaret Peacock 18,4 % |
+| 5. Tiempo de despacho | Días Promedio Despacho | Días Despacho Total / Órdenes Enviadas | 8,49 días |
+| 6. % órdenes pendientes | % Órdenes Pendientes | Órdenes Pendientes / Órdenes | 2,53 % |
+
+Además, el cubo define 4 objetos KPI con valor, meta y estado tipo semáforo (1 = cumple, 0 = alerta, -1 = no cumple):
+
+| Objeto KPI | Valor | Meta |
+|---|---|---|
+| Ventas Netas | Monto Neto | Superar el mismo período del año anterior |
+| Tasa de Descuento | % Descuento | ≤ 7 % |
+| Tiempo de Despacho | Días Promedio Despacho | ≤ 7 días (alerta hasta 10) |
+| Tasa de Pendientes | % Órdenes Pendientes | ≤ 2 % |
+
+Las metas son propuestas referenciales del equipo (el caso no define metas) y se pueden ajustar en el script XMLA o en la pestaña KPIs del proyecto de Visual Studio. Los nombres de los objetos KPI no llevan `%` porque Visual Studio no admite ese carácter en el nombre de un objeto.
+
+### Validación del cubo
+`olap/scripts/03_consultas_kpi.mdx` contiene 8 consultas, una por KPI, con su valor esperado calculado en SQL sobre `KentFoodsDW`. Las 8 coinciden:
+
+| Control | Cubo | SQL sobre el DW |
+|---|---|---|
+| Monto neto total | 1.265.792,53 | 1.265.792,53 |
+| Órdenes | 830 | 830 |
+| Ticket promedio | 1.525,05 | 1.525,05 |
+| % de descuento | 6,55 % | 6,55 % |
+| Días promedio de despacho | 8,49 | 8,49 |
+| % órdenes pendientes | 2,53 % | 2,53 % |
+| Ventas 2017 vs 2016 | +196,56 % | +196,56 % |
+
+Por transportista: Federal Shipping 7,47 días y 2,35 % pendientes; Speedy Express 8,57 días y 1,61 %; United Package 9,23 días y 3,37 %.
+
+### Proyecto de Visual Studio
+`olap/proyecto-ssas/KentFoods_OLAP/` se creó con la plantilla **Import from Server (Multidimensional and Data Mining)** a partir de la base `KentFoods_OLAP` ya desplegada. Contiene el origen de datos (`KentFoodsDW.ds`), la vista de datos (`KentFoodsDW.dsv`), las 5 dimensiones (`.dim`) y el cubo (`KentFoods.cube`, con el script MDX y los KPI). Se despliega con **Build → Deploy**.
+
+## Dashboard en Power BI - Fase 2
+Archivo `powerbi/KentFoodsBI.pbix`, conectado a la base dimensional `KentFoodsDW`.
+
+- **Tarjetas de KPI:** Ventas Netas, Ticket Promedio, % Descuento, Tiempo Despacho Promedio y % Órdenes Pendientes.
+- **Visualizaciones:**
+  - Ventas netas por año (cascada) y por mes (líneas).
+  - Ventas netas por producto y desempeño de vendedores (barras).
+  - Ventas netas por categoría (anillo).
+  - Tiempo de despacho promedio por transportista (columnas).
+- **Segmentadores:** Año, Mes, País del cliente y Empleado.
+
 ## Tecnologías utilizadas
-SQL Server, SQL Server Management Studio, Visual Studio (SSIS), GitHub.
+SQL Server, SQL Server Management Studio, Visual Studio (SSIS y Analysis Services Projects), SQL Server Analysis Services (Multidimensional), Power BI Desktop, GitHub.
 
 ## Estructura del repositorio
 ```
@@ -183,13 +274,16 @@ Inteligencia_de_Negocios_Grupo12/
 |   |-- modelo-dimensional/
 |   |   `-- diagrama-estrella.png        Diagrama del modelo dimensional (SSMS)
 |   |-- presentacion/                    
-|   |   `-- Kent Foods – Fase 1.pptx     Presentación de la Fase 1
+|   |   |-- Kent Foods – Fase 1.pptx     Presentación de la Fase 1
+|   |   `-- Kent Foods – Fase 2.pptx     Presentación de la Fase 2 (cubo OLAP y dashboard)
 |   `-- informe/
 |       `-- Informe_KentFoods_Fase1.docx      Informe de la Fase 1
 |-- database/
 |   |-- scripts/
 |   |   |-- 01_crear_modelo_dimensional.sql   Crea KentFoodsDW y carga DimTiempo
-|   |   `-- 02_validacion_carga.sql           Valida la carga después del ETL
+|   |   |-- 02_validacion_carga.sql           Valida la carga después del ETL
+|   |   |-- 03_vistas_cubo.sql                Vistas vDimTiempo y vFactOrdenes para el cubo
+|   |   `-- 04_permisos_ssas.sql              Permiso de lectura para la cuenta de SSAS
 |   `-- backup/
 |       |-- KentFoods.bak                Base transaccional entregada (origen)
 |       `-- KentFoodsDW                  Backup del DW con datos cargados
@@ -203,8 +297,20 @@ Inteligencia_de_Negocios_Grupo12/
 |               |-- KentFoods_ETL.database
 |               `-- Project.params
 |-- olap/
-|   `-- proyecto-ssas/                   Fase 2
-`-- powerbi/                             Fase 2 (dashboard.pbix)
+|   |-- scripts/
+|   |   |-- 01_crear_cubo_KentFoods.xmla  Crea la base OLAP KentFoods_OLAP y el cubo
+|   |   |-- 02_procesar_cubo.xmla         Procesa (carga) dimensiones y cubo
+|   |   `-- 03_consultas_kpi.mdx          Consultas MDX de validación de los KPI
+|   `-- proyecto-ssas/
+|       `-- KentFoods_OLAP/
+|           |-- KentFoods_OLAP.sln       Solución de Visual Studio (Analysis Services)
+|           `-- KentFoods_OLAP/
+|               |-- KentFoods_OLAP.dwproj  Proyecto SSAS multidimensional
+|               |-- KentFoodsDW.ds / .dsv  Origen de datos y vista de datos
+|               |-- Tiempo, Cliente, Producto, Empleado, Transportista (.dim)
+|               `-- KentFoods.cube         Cubo con medidas, cálculos MDX y KPI
+`-- powerbi/
+    `-- KentFoodsBI.pbix                 Dashboard en Power BI
 ```
 
 ## Instrucciones de ejecución/revisión
@@ -212,7 +318,19 @@ Inteligencia_de_Negocios_Grupo12/
 2. Ejecutar `database/scripts/01_crear_modelo_dimensional.sql` en SSMS. Crea la base **KentFoodsDW** con sus tablas, claves y relaciones, y carga `DimTiempo`.
 3. Abrir `etl/proyecto-ssis/KentFoods_ETL/KentFoods_ETL.sln` en Visual Studio y ejecutar el paquete `Main.dtsx` (carga dimensiones, luego `FactVentas` y al final ejecuta la tarea `SQL_Validacion_Carga`).
 4. Ejecutar `database/scripts/02_validacion_carga.sql` y verificar que todas las filas digan **OK**.
-5. Alternativa para revisión rápida: restaurar `database/backup/KentFoodsDW`, que ya contiene los datos cargados.
+5. Alternativa para revisión rápida: restaurar `database/backup/KentFoodsDW`, que ya contiene los datos cargados (reemplaza los pasos 2 a 4).
+
+**Cubo OLAP (Fase 2):**
+
+6. En SSMS, conectado al **motor de base de datos**, ejecutar `database/scripts/03_vistas_cubo.sql` (la consulta final debe mostrar 830 órdenes, 809 enviadas, 21 pendientes y 6.870 días) y luego `database/scripts/04_permisos_ssas.sql`.
+7. En SSMS, conectarse a **Analysis Services** (*Connect → Analysis Services*), abrir `olap/scripts/01_crear_cubo_KentFoods.xmla` y ejecutarlo (F5). Después abrir y ejecutar `olap/scripts/02_procesar_cubo.xmla`.
+8. Abrir `olap/scripts/03_consultas_kpi.mdx` en la misma conexión, ejecutar cada consulta por separado y comparar con los valores esperados de los comentarios.
+9. Para revisar el cubo en Visual Studio: abrir `olap/proyecto-ssas/KentFoods_OLAP/KentFoods_OLAP.sln` (y desplegar con **Build → Deploy** si se modifica).
+10. Volver a ejecutar `02_procesar_cubo.xmla` cada vez que el ETL recargue `KentFoodsDW`.
+
+**Dashboard (Fase 2):**
+
+11. Abrir `powerbi/KentFoodsBI.pbix` en Power BI Desktop y, si se pide, apuntar el origen de datos a `KentFoodsDW` en el servidor local. Usar **Actualizar** para cargar los datos.
 
 ## Avances por fase
 | Fase | Estado |
@@ -222,12 +340,17 @@ Inteligencia_de_Negocios_Grupo12/
 | Fase 1 – Script de validación de la carga | Listo |
 | Fase 1 – ETL en SSIS | Listo |
 | Fase 1 – Backup de KentFoodsDW cargado | Listo |
-| Fase 1 – Presentación | En progreso |
-| Fase 2 – Cubo OLAP y Power BI | No iniciado |
+| Fase 1 – Presentación | Listo |
+| Fase 2 – Revisión de componentes de la Fase 1 | Listo |
+| Fase 2 – Cubo OLAP (dimensiones, jerarquías, medidas y KPI) | Listo |
+| Fase 2 – Proyecto SSAS en Visual Studio | Listo |
+| Fase 2 – Dashboard en Power BI | Listo |
+| Fase 2 – Presentación | Listo |
+| Fase 2 – Informe (sección Cubos OLAP) | En progreso |
 
 ## Distribución de responsabilidades y aportes
 
 | Integrante | Responsabilidades | Entregables |
 |---|---|---|
-| Maximiliano Bono | Análisis de la base transaccional, definición de KPI, aplicación de los 4 pasos de Kimball, diseño e implementación del modelo dimensional, script de validación, informe (secciones de modelo dimensional) y presentación (sección de KPI y modelo) | `database/scripts/01_crear_modelo_dimensional.sql`, `database/scripts/02_validacion_carga.sql`, `docs/modelo-dimensional/`, estructura del repositorio y README |
-| Cristian Salinas | Proceso ETL en SSIS (carga de dimensiones y de `FactVentas`), ejecución de la validación de la carga, generación del backup del DW, informe (sección ETL) y presentación (sección ETL y demostración) | `etl/proyecto-ssis/`, `database/backup/KentFoodsDW`, actualización del README con el ETL |
+| Maximiliano Bono | Análisis de la base transaccional, definición de KPI, aplicación de los 4 pasos de Kimball, diseño e implementación del modelo dimensional, script de validación, informe (secciones de modelo dimensional) y presentación (sección de KPI y modelo). **Fase 2:** revisión de la Fase 1, vistas y permisos para el cubo, cubo OLAP en SSAS (dimensiones, jerarquías, medidas calculadas y KPI), consultas MDX de validación, proyecto SSAS y presentación (sección del cubo) | `database/scripts/01` a `04`, `docs/modelo-dimensional/`, `olap/`, estructura del repositorio y README |
+| Cristian Salinas | Proceso ETL en SSIS (carga de dimensiones y de `FactVentas`), ejecución de la validación de la carga, generación del backup del DW, informe (sección ETL) y presentación (sección ETL y demostración). **Fase 2:** dashboard en Power BI, informe (sección Power BI) y presentación (sección del dashboard) | `etl/proyecto-ssis/`, `database/backup/KentFoodsDW`, `powerbi/`, actualización del README con el ETL |
